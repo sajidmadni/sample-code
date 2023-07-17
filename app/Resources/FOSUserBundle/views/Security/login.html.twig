@@ -1,0 +1,118 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ parent() }} | Login{% endblock %}
+{% block additional_body_classes %} content-login content-fixed-header{% endblock %}
+
+{% block app_content %}
+
+{#{{ error.messageKey|trans(error.messageData, 'security') }}#}
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        {% if is_mobile() %}
+            <div class="ourApp">
+               Download our App<br /> for the best experience
+            </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-lg-push-4 col-md-push-5 col-sm-push-4">
+                        <div class="panel-login panel" style="text-align: center;">
+                            <div class="panel-body" style="border-bottom: solid 1px#f99f3e;">
+                                <select id="organization" name="organization" tabindex="-1" aria-hidden="true" class="form-control round ourAppDD">
+                                    <option value="None" selected="Selected">Choose Organization....</option>
+                                </select>
+                                <div class="appOrgLink"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% else %}
+        <div class="error" style="color:red;text-align: center">
+            {%if(error) %}
+                Invalid username/ password
+               {%endif%}
+        </div>
+        <form action="{{ path("fos_user_security_check") }}" method="post" role="form" autocomplete="off">
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-3 col-sm-6 col-lg-push-4 col-md-push-5 col-sm-push-4">
+
+                    <div class="panel-login panel panel-default">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-user-md"></i> Login </h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" class="form-control" placeholder="Username" name="_username" value="{{ last_username }}" required="required" autofocus />
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            <div style="display:none;"><!-- dont allow user to save password -->
+                                <input type="text" id="my_username"/>
+                                <input type="password" id="my_password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required>
+                            </div>
+
+                            <a href="#" class="btn-block hidden">Forgotten Password?</a>
+
+                            <button class="btn btn-primary" value="{{ 'security.login.submit'|trans }}" type="submit">Login</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-lg-4 col-md-3 col-sm-6 col-lg-push-4 col-md-push-5 col-sm-push-4">
+                    <p><a href="{{ path('registry') }}" class="center-block text-center" role="button">Register</a></p>
+                </div>
+                <div class="clearfix"></div>
+                {% if ldapManager.hospitalNames | length > 0 %}
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-lg-push-4 col-md-push-5 col-sm-push-4">
+                        <p><a href="{{ path('ldap_login') }}" class="center-block text-center" role="button">Active Login</a></p>
+                    </div>
+                {% endif %}
+                <div class="clearfix"></div>
+                {% if samlIdpService.idpEntityDescriptorStore.all | length > 0 %}
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-lg-push-4 col-md-push-5 col-sm-push-4">
+                        <p><a href="{{ path('lightsaml_sp.login') }}" class="center-block text-center" role="button">SAML Login</a></p>
+                    </div>
+                {% endif %}
+                <div class="clearfix"></div>
+                <div class="col-lg-4 col-md-3 col-sm-6 col-lg-push-4 col-md-push-5 col-sm-push-4 center-block text-center">
+                    <b>Need Help?</b> Call 1-844-586-4749 or Email
+                    <u><a href='mailto:support@uniphyhealth.com'>support@uniphyhealth.com</a></u>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.getJSON("{{ path('hosp_app_links') }}", function(obj) {
+                $.each(obj, function(key, value) {
+                    $("#organization").append("<option value='" + value.id +"'>" + value.name + "</option>");
+                    $('.appOrgLink').append('<a id="appUrl_' + value.id +'" href="{% if is_ios() %}' + value.iosUrl +'{% else %}' + value.androidUrl +' {% endif %}" class="btn btn-default orgLink hidden">DOWNLOAD NOW</a>\n');
+                });
+
+                var selOrgLink;
+                $("select[name=organization]").focus(function () {
+                    selOrgLink = this.value;
+                }).change(function() {
+                    $('#appUrl_' + selOrgLink).addClass('hidden');
+                    selOrgLink = this.value;
+                    $('#appUrl_' + selOrgLink).fadeToggle(10).removeClass('hidden');
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,30 @@
+
+This file contains various tips for testing and debugging. 
+
+
+*** update times in test data base for message testing ***
+
+the sample clean databases tend to be a bit old. it is useful to update them.
+
+This technique shifts all times int he messgae stable towards NOW():
+
+MariaDB [pu_clean_121015]> select timediff(now(),max(created_at)) into @dt from private_message;
+
+MariaDB [pu_clean_121015]> update private_message set created_at=ADDTIME(created_at,@dt),
+        updated_at=addtime(updated_at,@dt),receipt_confirmed_at=addtime(receipt_confirmed_at,@dt); 
+Query OK, 457936 rows affected (10.93 sec)
+Rows matched: 457936  Changed: 457936  Warnings: 0
+
+
+
+**** Time shift one user:
+
+I like to use Chris Farrell for testing, but he has been quiet for a while. 
+
+
+MariaDB [pu_clean_121015]> select timediff(now(),"2015-09-30 16:29:45") into @dt ;
+Query OK, 1 row affected (0.00 sec)
+MariaDB [pu_clean_121015]> update private_message set created_at=ADDTIME(created_at,@dt),updated_at=addtime(updated_at,@dt),receipt_confirmed_at=addtime(receipt_confirmed_at,@dt) where sender_id=19505 or receiver_id=19505; 
+Query OK, 1697 rows affected (0.08 sec)
+
+where 19505 is his id. 

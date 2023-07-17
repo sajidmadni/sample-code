@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block jumbotron %}{{ title }}{% endblock %}
+
+
+{% block fos_user_content %}
+
+
+<!-- app/Resources/views/PrUForm.html.twig -->
+<style type="text/css">
+    .table-hover tbody tr:hover td
+    {
+        background-color: #CEECF5;
+    }
+</style>
+
+
+    <table class="table table-striped table-hover" style="width:60%;margin-left:auto;margin-right:auto;" >
+		<tr><td>{{ ttitle }}</td></tr>
+		{% for key, value in table %} 
+		       <tr>
+				   <td><A HREF="{{- value -}}">{{- key -}}</A> </td> 
+        </tr>
+		{% endfor %}
+    </table>
+
+
+{% endblock %}

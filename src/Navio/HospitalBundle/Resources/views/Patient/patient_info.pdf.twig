@@ -1,0 +1,103 @@
+<pdf Title="Handoff Print PDF">
+    <title>Handoff Print PDF</title>
+    <dynamic-page  style="margin-left:60px; font-family: Calibri;">
+        <placeholders>
+            <footer height="2%">
+                <div height="5px" width="100%" float="right">
+                    <page-info format="Page %s of %s" />
+                </div>
+            </footer>
+        </placeholders>
+        {#              <h1  style="padding: 5px 0px;font-size:14px;background-color:#0074bf; text-align: center;color: #FFFFFF" ><b>Filtered by Group: Blue Team</b></h1>#}
+
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            {% if filteredBy and filteredBy is not empty %}
+            <tr>
+                <td width="100%" colspan="6" style="font-size:14px;background-color:#2a91f1; text-align: center;color: #FFFFFF; text-align: center;width:100%;"><b>Filtered by Group: {{ filteredBy }}</b></td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td style="font-size:13px;background-color:#958e8e;color: #FFFFFF; text-align: left;padding-top:4px;padding-bottom:4px;width: 10%;"><b>First Name</b></td>
+                <td style="font-size:13px;background-color:#958e8e;color: #FFFFFF; text-align: left;padding-top:2px;padding-bottom:2px;width: 10%;"><b>Last Name</b></td>
+                <td style="font-size:13px;background-color:#958e8e;color: #FFFFFF; text-align: left;padding-top:2px;padding-bottom:2px;width: 10%;"><b>DOB</b></td>
+                <td style="font-size:13px;background-color:#958e8e;color: #FFFFFF; text-align: left;padding-top:2px;padding-bottom:2px;width: 10%;"><b>MRN</b></td>
+                <td style="font-size:13px;background-color:#958e8e;color: #FFFFFF; text-align: left;padding-top:2px;padding-bottom:2px;width: 10%;"><b>Location</b></td>
+                <td style="font-size:13px;background-color:#958e8e;color: #FFFFFF; text-align: left;padding-top:2px;padding-bottom:2px;width: 50%;"><b>Information</b></td>
+            </tr>
+            {#  Iterate loop here #}
+            {% if patientsPDF is defined and patientsPDF|length > 0 %}
+                {% for patKey, patient in patientsPDF %}
+                    <tr>
+                        <td colspan="5" style="text-align: left;height: 100px;" valign="top">
+                            <div style="height: 100%;border: 1px solid #000000;min-height: 100px;">
+                                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="20%" style="font-size:12px;color: #0074bf; text-align: left;border: 1px solid #000000;padding-left: 2px;"><b>{{ patient.first_name[:11] }}</b></td>
+                                        <td width="20%" style="font-size:12px;color: #0074bf; text-align: left;border: 1px solid #000000;padding-left: 2px;"><b>{{ patient.last_name[:11] }}</b></td>
+                                        <td width="20%" style="font-size:12px;color: #0074bf; text-align: left;border: 1px solid #000000;padding-left: 2px;"><b>{{ patient.dob }}</b></td>
+                                        <td width="20%" style="font-size:12px;color: #0074bf; text-align: left;border: 1px solid #000000;padding-left: 2px;"><b>{{ patient.mrn }}</b></td>
+                                        <td width="20%" style="font-size:12px;color: #0074bf; text-align: left;border: 1px solid #000000;padding-left: 2px;"><b>{{ patient.location }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="font-size:12px;text-align: left;width:100%">
+                                            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="width: 100%;text-align: left;padding:20px;font-size:12px;">
+                                                        <span style="color: #0074bf;"><b>To-do list for {{ patient.last_name }}, {{ patient.first_name }}</b></span>
+                                                        <ul>
+                                                            {% if patient.patient_tasks is defined and patient.patient_tasks|length > 0 %}
+                                                                {% for patTaskKey, patientTask in patient.patient_tasks %}
+                                                                    <li style="font-size:12px;">
+                                                                        {% set completedBy = "" %}
+                                                                        {% if patientTask.completed == 1 %}
+                                                                            {% set completedBy = patientTask.completed_by %}
+                                                                            <del>
+                                                                        {% endif %}
+                                                                        {{  patientTask.name }}
+                                                                        {% if patientTask.importance == 1 %} <span style="color: #FF0000;">[High]</span>{% endif %}
+                                                                        {% if patientTask.completed == 1 %}</del>{% endif %}
+                                                                        {{ completedBy }}
+                                                                        {% if patientTask.completed != 1 %}(Open){% endif %}
+                                                                    </li>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="text-align: left;height: 130px" valign="top">
+                            <div style="height: 100%;border: 1px solid #000000;min-height: 100px;">
+                                <table cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="font-size:13px;text-align: left;width:100%;" valign="top">
+                                            <table cellspacing="0" cellpadding="0" style="width: 100%">
+                                                {% if patient.information is defined  %}
+                                                    {% for patInfoKey, patientInfoVal in patient.information %}
+                                                        <tr>
+                                                            <td style="padding: 2px 0px;font-size:12px;text-align: left;width:100%;color: #0074bf;"><b>{{ patInfoKey }}</td>
+                                                        </tr>
+                                                        {% for patientKey, patientval in patientInfoVal %}
+                                                            <tr>
+                                                                <td style="padding: 2px 0px;font-size:12px;text-align: left;width:100%;">&nbsp;&nbsp;<b>{{ patientKey }}: </b> {{ patientval }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+
+    </dynamic-page>
+</pdf>

@@ -1,0 +1,35 @@
+#userEditForm {
+    margin-left: 3%;
+}
+
+#username, #email {
+    width: 50%;
+    border-radius: 5px;
+    border: solid #ccc 1px;
+    padding: 5px;
+    color: #666;
+}
+#userEditForm button {
+    margin-top: 20px;
+}
+form .btn {
+    margin: 0px 15px;
+    border-radius: 5px;
+    padding: 4px 9px;
+}
+#report_error_message {
+    background-color: #feffbc;
+    box-shadow: 1px 1px 8px #ccc;
+    color: #666;
+    margin: -20px 2% 25px 2%;
+}
+.lbl {
+    display: inline-block;
+    width: 15%;
+    color: #666;
+}
+.fld {
+    display: inline-block;
+    width: 70%;
+    color: #000;
+}

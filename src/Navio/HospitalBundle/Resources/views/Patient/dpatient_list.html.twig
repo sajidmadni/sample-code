@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{'Deleted Member List'|trans}}{% endblock %}
+{% block page_title %}{{'Deleted Member List'|trans}}{% endblock %}
+{% if search_page is not defined %}{% set search_page = "dpatient_list" %}{% endif %}
+
+
+{% block header_actions %}
+    {% include 'HospitalBundle:Default/Module:search.html.twig' %} 
+{% endblock %}
+
+{% block app_content_inner %}
+
+    <div class="container-fluid">
+
+        <div class="col-lg-12">
+
+            <table class="table table-bordered fixHeader">
+                <thead>
+                    <tr>
+                        <th>Agency</th>
+                        <th>Team</th>
+                        <th>Name</th>
+                        <th>Clinical Manager</th>
+                        <th>Diagnosis</th>
+                        <th>Phone</th>
+                        <th>Language</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if record %}
+                {% for patient in record %}
+                    <tr>
+                        <td>{{ patient.getAgency() }}</td>
+                        <td>{{ patient.getPatientGroup()?patient.getPatientGroup().name:'n/a' }}</td>
+                        <td>{{ patient }}</td>
+                        <td>{{ patient.getPhysician()?patient.getPhysician() }}</td>
+                        <td>{% for item in patient.getDiagnosis1() %}{{item.name}}{% endfor %} </td>
+                        <td>{{ patient.getPhone() }}</td>
+                        <td>{{ patient.getLanguage() }}</td>
+                        <td>
+                            <a href="{{ path('patient_undelete',{'id':patient.getId()}) }}" class="btn btn-default"><i class="fa fa-undo" title="Undelete"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% else%}
+                    <tr>
+                        <td colspan="9">Could not find patients!</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% include 'HospitalBundle:Default/Module:pagination.html.twig' %}
+        </div>
+
+    </div>
+
+    {% include 'MessageBundle:Default/Modal:message_modal.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% include 'MessageBundle:Default/Modal:message_modal.js.twig' %}
+
+{% endblock %}

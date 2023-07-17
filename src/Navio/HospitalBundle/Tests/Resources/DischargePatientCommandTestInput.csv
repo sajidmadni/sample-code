@@ -1,0 +1,6 @@
+ttimestamp,timestamp2,,,
+10/9/19 12:00,Patient Visits Count: 337,,,
+,,,,
+MedRecNo,PatName,Location,Visit_ID,Admit_DT
+12312312,,,3000771348,10/6/19 18:17
+6789  ,,,3000771348,10/8/19 18:17

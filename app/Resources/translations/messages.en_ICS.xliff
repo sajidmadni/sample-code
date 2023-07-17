@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!-- messages.en_XXX Automatically generated on date with bin/genXliff 4 -->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+		<trans-unit id="id"> <source>name</source> <target>localtext</target> </trans-unit>
+		<trans-unit id="12"> <source>Physician</source> <target>Clinical Mgr</target> </trans-unit>
+		<trans-unit id="13"> <source>Npi number</source> <target>Agency HCW ID</target> </trans-unit>
+		<trans-unit id="14"> <source>Cell phone</source> <target>Primary Phone</target> </trans-unit>
+		<trans-unit id="15"> <source>Office phone</source> <target>Secondary Phone</target> </trans-unit>
+		<trans-unit id="16"> <source>Degree</source> <target>Certifications</target> </trans-unit>
+		<trans-unit id="17"> <source>Add New Physician</source> <target>Add Staff</target> </trans-unit>
+		<trans-unit id="18"> <source>Doc number</source> <target>Agency ID</target> </trans-unit>
+		<trans-unit id="19"> <source>Add New Patient Group</source> <target>Add New Team</target> </trans-unit>
+		<trans-unit id="20"> <source>Notes</source> <target>Notes</target> </trans-unit>
+		<trans-unit id="21"> <source>Issues</source> <target>Emergency Contact</target> </trans-unit>
+		<trans-unit id="22"> <source>Lab</source> <target>PCP Details</target> </trans-unit>
+		<trans-unit id="23"> <source>Hpi</source> <target>Local Resources</target> </trans-unit>
+		<trans-unit id="24"> <source>Medications</source> <target>Meds</target> </trans-unit>
+		<trans-unit id="25"> <source>physicianImportLine</source> <target>ATT_NUM,LAST_NAME,FIRST_NAME,PHONE_NUM,ALT_PHONE,BRTHDATE,SEX,LANG_1,LANG_2,SPCSKILL,Agency</target> </trans-unit>
+		<trans-unit id="26"> <source>score=3</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;&lt;/i&gt;&lt;i style=&quot;color:red&quot;&gt; RED&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="27"> <source>score=2</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;&lt;i style=&quot;color:orange&quot;&gt; Yellow&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="28"> <source>score=1</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:green&quot;&gt;&lt;/i&gt;&lt;i style=&quot;color:green&quot;&gt; Green&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="29"> <source>score=0</source> <target>&lt;i class=&quot;fa fa-check&quot; style=&quot;color:black&quot; &gt;&lt;/i&gt; OK</target> </trans-unit>
+		<trans-unit id="30"> <source>score=</source> <target>&lt;i class=&quot;fa fa-check&quot; style=&quot;color:blue&quot; &gt;&lt;/i&gt; Ok</target> </trans-unit>
+		<trans-unit id="31"> <source>Physician Import</source> <target>Import Staff List</target> </trans-unit>
+		<trans-unit id="32"> <source>Agency list</source> <target>Dept / Practice List</target> </trans-unit>
+		<trans-unit id="33"> <source>Agency</source> <target>Dept. / Practice</target> </trans-unit>
+		<trans-unit id="34"> <source>Member List</source> <target>Patients</target> </trans-unit>
+		<trans-unit id="35"> <source>Add New Member</source> <target>Add New Patient</target> </trans-unit>
+		<trans-unit id="39"> <source>News</source> <target>Notes</target> </trans-unit>
+                
+                <trans-unit id="40"> <source>pat_</source> <target>&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:green&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+                <trans-unit id="41"> <source>pat_active</source> <target>&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:green&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+                <trans-unit id="42"> <source>pat_suspend</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="43"> <source>pat_off</source> <target>&lt;i class=&quot;fa fa-circle-thin&quot; style=&quot;color:black&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+                
+		<trans-unit id="50"> <source>All Agencies</source> <target>All Depts</target> </trans-unit>  
+		<trans-unit id="51"> <source>Patient</source> <target>Member</target> </trans-unit>
+		<trans-unit id="52"> <source>Patients</source> <target>Members</target> </trans-unit>
+
+                <trans-unit id="2"> <source>Agency list</source> <target>Agency list</target> </trans-unit>
+		<trans-unit id="3"> <source>Agency</source> <target>Agency</target> </trans-unit>
+
+                                                                                                          
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,29 @@
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="cBKAra5B7ad82ZvL8430TIeBFPC" cacheDuration="PT1440M" entityID="fed.unch.unc.edu.saml2">
+    <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAuthnRequestsSigned="true">
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+                        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
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:NameIDFormat>
+            urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
+        </md:NameIDFormat>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://fed.unch.unc.edu/idp/SSO.saml2"/>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://fed.unch.unc.edu/idp/SSO.saml2"/>
+        <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="firstname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"/>
+        <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="dept" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"/>
+        <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="officephone" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"/>
+        <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="email" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"/>
+        <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="lastname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"/>
+        <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="username" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"/>
+    </md:IDPSSODescriptor>
+    <md:ContactPerson contactType="administrative">
+        <md:Company>UNC Health Care</md:Company>
+        <md:EmailAddress>PingFederateAdmins@unchealth.unc.edu</md:EmailAddress>
+        <md:TelephoneNumber>(984) 974-4357</md:TelephoneNumber>
+    </md:ContactPerson>
+</md:EntityDescriptor>

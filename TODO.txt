@@ -1,0 +1,61 @@
+TODO
+
+
+TODO:  change hospital menu to "Team" 
+Physician to provider. 
+Patient to Member
+
+
+FOS USER: 
+resolve issues with dupilicate username
+
+
+Limit question sets to single hospital. 
+
+Search Phy
+
+
+LOWPRIORITY: 
+
+https://patient.njd.p-u.us/app_dev.php/qset/detail/8  make "ADD" a plus symbol 
+
+Make Access codes invisible. 
+
+			                    <h1><B>Name:</B>{$patient->getFirstname()} {$patient->getLastname()}</h1>
+                                <BR><B>DOB:</B>{$patient->getBirthdate()->format(\DateTime::ISO8601)}
+                                <BR><B>Gender:</B> {$patient->getGender()}
+                                <BR><B>Address:</B> 
+                                <BR>\t{$patient->getLocation()}
+                                <BR>\tAnytown, NY, 10009
+                                <BR>
+                                <BR><B>Agency:</B> {$user->getHospital()->getName()}
+                                <BR><B>PCP:</B> {$phy->getLastName()} {$phy->getOfficePhone()}
+                                <BR><B>Primary Language:</B> Spanish
+                                <BR><B>TAGS:</B> {$patient->getTag()}
+                                <BR><B>MEDS:</B> {$patient->getMeds()}
+                                <BR><B>LABS:</B> {$patient->getLab()}
+                                <BR><B>ISSUES:</B> {$patient->getIssues()}
+
+		");
+		$depts[] = array("id"=>"3","name"=>"localresources","text"=>
+"<b>Urgent Medical Care Facility</b> 
+<BR>
+Brighton Beach Fast Care – (555) 198-9987
+<BR>23 Elton Rd,
+<BR>Brighton Beach
+<BR> Hours M-F 8am-10pm Sat/Sun 10am 6pm
+<BR> 
+<BR> 
+<BR> 
+<b>Surgical Supply</b> –
+<BR> Western Medical Supply
+<BR> 999 Jones St.
+<BR> Brighton Beach
+<BR> Hours M-F 9am-5pm Sat 9am-1pm
+<BR> 
+<BR> 
+<BR> Other Notes:
+<BR> Oxygen will be delivered on Wednesday mornings and left outside back door.
+<BR> Member’s neighbor can be used as an emergency contact – Anna Lane (555) 574-9873
+"
+					   );

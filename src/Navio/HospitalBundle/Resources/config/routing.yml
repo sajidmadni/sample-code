@@ -1,0 +1,119 @@
+####
+####
+####  Let's get rid of all these routes and use annotations ( with the possible exception of the / route. )
+####
+####
+
+
+
+#edit_physician:
+#    path:  /edit_phy/{id}
+#    defaults: { _controller:HospitalBundle:Default:editphy }
+#delete_physician:
+#    path:  /del_phy/{id}
+#    defaults: { _controller:HospitalBundle:Default:delphy }
+
+#private_message: 
+#    path: /pm
+#    defaults: { _controller:MessageBundle:Default:pm }
+group_message:
+    path: /gm
+    defaults: { _controller:MessageBundle:Default:group }
+#view_message:
+#    path: /view_message/{aaa1}/{aaa}
+#    defaults: { _controller:MessageBundle:Default:viewmessage }	
+#hospital:
+#    path: /hospital
+#    defaults: { _controller:HospitalBundle:Default:hospital }
+#edit_hospital: 
+#    path: /edit_hospital/{id}
+#    defaults: { _controller:HospitalBundle:Default:edithosp }
+#new_hospital:
+#    path: /new_hospital
+#    defaults: { _controller:HospitalBundle:Default:newhosp }
+#delete_hospital:
+#    path: /delete_hospital/{id}
+#    defaults: { _controller:HospitalBundle:Default:delhosp }
+
+#add_components:
+#    path: /add_comp/{id}
+#    defaults: { _controller:HospitalBundle:Default:addcomp }
+
+# not defined. 
+#add_menu_item:
+#    path: /add_menu_item/{id}/{cid}/{name}
+#    defaults: { _controller:HospitalBundle:Default:addmenuitem }
+
+#check:
+#    path: /check/{id}
+#    defaults: { _controller:HospitalBundle:Default:check }
+
+
+#view_components:
+#    path: /view_comp/{id}
+#    defaults: { _controller:HospitalBundle:Default:viewcomp }
+
+#verify:
+#    path: /verify
+#    defaults: { _controller:HospitalBundle:Default:verify }
+#delete_component:
+#    path: /delete_component/{id}
+#    defaults: { _controller:HospitalBundle:Default:deletecomponent }
+
+
+#view_components:
+#    path: /view_comp/{id}
+#    defaults: { _controller:HospitalBundle:Default:viewcomp }
+
+send_json:
+    path: /sendjson/{aaa1}/{aaa}/{msg}
+    defaults: { _controller:MessageBundle:Default:sendjson }
+send_json1:
+    path: /sendjson1
+    defaults: { _controller:MessageBundle:Default:sendjson1 }
+    requirements: { _method: post }
+#add_user:
+#    path: /add_user/{id}
+#    defaults: { _controller:HospitalBundle:Default:adduser }
+#new_patient:
+#    path: /new_pat/{id}
+#    defaults: { _controller:HospitalBundle:Default:newpat }
+
+#edit_component:
+#    path: /edit_component/{id}
+#    defaults: { _controller:HospitalBundle:Default:editcomp }
+
+#edit_menu_items:
+#    path: /edit_menu_items/{id}
+#    defaults: { _controller:HospitalBundle:Default:editmenuitems }
+
+#edit_menu_items1:
+#    path: /edit_menu_items1/{id}
+##    defaults: { _controller:HospitalBundle:Default:editmenuitems1 }
+#edit_menu_items2:
+#    path: /edit_menu_items2/{id}
+#    defaults: { _controller:HospitalBundle:Default:editmenuitems2 }
+#    
+#upload_physician:
+#    path: /upload_physician
+#    defaults: { _controller:HospitalBundle:Default:uploadphysician }
+
+#patient:
+#    path: /pat_list
+#    defaults: { _controller:HospitalBundle:Default:patient }#
+#
+#new_pat:
+#    path: /newpatient
+#    defaults: { _controller:HospitalBundle:Default:newpatient }#
+
+#edit_pat:
+#    path: /editpatient/{id}
+#   defaults: { _controller:HospitalBundle:Default:editpat }
+#move_component:
+#    path: /movecomponent/{id}/{sorted}
+#    defaults: { _controller:HospitalBundle:Default:movecomp }
+#------physician search route
+#phy_search:
+#    path: /phy_search
+#    defaults: { _controller:HospitalBundle:Default:searchphy }
+#    requirements: { _method: post }

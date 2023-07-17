@@ -1,0 +1,417 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{'New Patient'|trans()}}{% endblock %}
+{% block page_title %}{{'New Patient'|trans()}}
+{{ form_javascript(form) }}
+{% endblock %}
+{% block additional_body_classes %} content-has-header{% endblock %}
+{% block content_inner_core_classes %}content-inner content-inner-with-padding {%  endblock %}
+{% block header_actions %}
+    <a class="btn btn-danger" href="{{ path('patient_list') }}" role="button"><i class="fa fa-times"></i></a>
+{% endblock %}
+
+
+{% block app_content_inner %}
+{{ form_start(form) }}
+{{ form_row(form._token) }}
+
+<div class="container-fluid "style="width: 80%">
+    {{ form_errors(form) }}
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="form-group row">
+                                <div class=" col-md-2 required"><label for="first_name">First name</label></div>
+                                <div class=" col-md-9">{{ form_widget(form.firstName, { 'id': 'first_name' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 required"> <label for="last_name">Last name</label></div>
+                                <div class=" col-md-9"> {{ form_widget(form.lastName, { 'id': 'last_name' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 required"> <label for="patient_id">Patient ID</label></div>
+                                <div class=" col-md-9"> {{ form_widget(form.patientId, { 'id': 'patient_id' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 required"><label for="dob" class="post">Date of Birth</label></div>
+                                <div class=" col-md-9 row">{{ form_widget(form.birthdate, { 'id': 'patient_birthdate' }) }} </div>
+                                
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="gender">Gender</label></div>
+                                <div class=" col-md-2 ">{{ form_widget(form.gender, { 'id': 'gender' }) }}</div>
+                            </div> 
+                            <div class="form-group row">
+                                <div class=" col-md-2 required"><label for="location" style="width: 70%">Patient Location</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.location, { 'id': 'location' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="addr1">Address Line 1</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.addr1, { 'id': 'patient_addr1' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="addr2">Address Line 2</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.addr2, { 'id': 'patient_addr2' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="city">City</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.city, { 'id': 'city' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "> <label for="state">State</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.state, { 'id': 'state' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="zip">Zip</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.zip, { 'id': 'zip' }) }}</div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="phone">Phone Number</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.phone, { 'id': 'phone' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="name">Language</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.language, { 'id': 'language' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="agency_dd">Dept. / Practice</label></div>
+                                <div class=" col-md-9 "><select id="patient_agency" name="agency" class="form-control" ></select></div>
+                            </div>
+                            <div class="form-group row hidden">
+                                <div class=" col-md-2 "><label for="pgroup_dd">Patient group</label></div>
+                                <div class=" col-md-9 "><select id="patient_patientGroup" name="pgrouplist" class="form-control" ></select></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="qset_dd">Question Set</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.questionset) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="diagnosis1_dd">Primary Diagnosis</label></div>
+                                <div class=" col-md-9 "><select id="patient_diagnosis1" name="diagnosis1[]" class="form-control" ></select></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="diagnosis2_dd">Secondary Diagnosis</label></div>
+                                <div class=" col-md-9 "><select id="patient_diagnosis2" name="diagnosis2[]" class="form-control" ></select></div>
+                            </div>
+                            <div class="form-group row hidden">
+                                <div class=" col-md-2 "><label for="physician_dd">Physician</label></div>
+                                <div class=" col-md-9 "><select id="patient_physician" name="physicianlist" class="form-control" ></select></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="zphysician_dd">Care Team</label></div>
+                                <div class=" col-md-9 "><select id="patient_zPhysicians" name="zphysicianlist[]" class="form-control" ></select></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="contact">Primary Contact</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.contact, { 'id': 'contact' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-2 "><label for="contactphone">Primary Contact Phone Number</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.contactphone, { 'id': 'contactphone' }) }}</div>
+                            </div>
+                            {% if handoff == false %}
+                                <div class="form-group row">
+                                    <div class=" col-md-2 "><label for="issues">Issues</label></div>
+                                    <div class=" col-md-9 ">{{ form_widget(form.issues, { 'id': 'issues' }) }}</div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class=" col-md-2 "><label for="meds">Meds</label></div>
+                                    <div class=" col-md-9 ">{{ form_widget(form.meds, { 'id': 'meds' }) }}</div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class=" col-md-2 "><label for="notes">Notes</label></div>
+                                    <div class=" col-md-9 ">{{ form_widget(form.notes, { 'id': 'note' }) }}</div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class=" col-md-2 "><label for="lab">Lab</label></div>
+                                    <div class=" col-md-9 ">{{ form_widget(form.lab, { 'id': 'lab' }) }}</div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class=" col-md-2 "><label for="hpi">HPI</label></div>
+                                    <div class=" col-md-9 ">{{ form_widget(form.hpi, { 'id': 'hpi' }) }}</div>
+                                </div>  
+                            {% endif %}
+                            <div class="form-group row hidden">
+                                <div class=" col-md-2 "><label for="preason">Participation reason</label></div>
+                                <div class=" col-md-9 ">{{ form_widget(form.admitReason, { 'id': 'preason' }) }}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class=" col-md-offset-2 col-md-9 "><button type="submit" class="btn btn-success" id="savePatientBtn" name="savePatient">SAVE</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+{%  endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+       
+   .bootstrap-datetimepicker-widget {
+        left: 600px;
+    }
+   .setHighlightRed{
+        border: 1px solid #ff0000 !important;
+   }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    
+{#    <script type="text/javascript" src="{{ asset('vendor/zenstruck//form-bundleZenstruck/Bundle/FormBundle/Resources/public/js/helper.js') }}"></script>
+{#    <script type="text/javascript" src="{{ asset('path/to/zenstruckform/js/script.js') }}"></script>
+#}    
+    
+    {{ form_javascript(form) }}
+
+    <script>
+        jQuery(document).ready(function ($) {
+            function formatPresenceTest(option)
+            {
+                if (option.text) {
+                    var optionText = option.text;
+                    optionText = optionText.replace(/[.\+\-:]/g, '');
+                    return formatPhysicianPresence(optionText,option.text.substring(0,1));
+                } else {
+                    return formatPhysicianPresence(option.name,option.presence);
+                }
+            }
+            function formatPhysicianPresence(name, presence)
+            {
+                name = name.replace(/[.\+\-:]/g, '');
+                switch (presence) {
+                    case '-'://dnd
+                    case 'dnd':
+                        return $('<span><i class="fa fa-circle" style="color:#ff0000;"></i> ' + name + '</span>');
+                        break;
+                    case '.'://active
+                    case 'active':
+                        return $('<span><i class="fa fa-circle"></i> ' + name + '</span>');
+                        break;
+                    case '+'://covered
+                    case 'covered':
+                        return $('<span><i class="fa fa-circle-thin"></i> ' + name + '</span>');
+                        break;
+                    case ':'://inactive
+                    case 'inactive'://inactive
+                        return $('<span><i class="fa fa-circle" style="color:#fff;padding-right: 4px;"></i>' + name + '</span>');
+                        break;
+                    case 'group':
+                        return $('<span><i class="fa fa-users" style="color:#2a91f1;"></i>' + name + '</span>');
+                        break;
+                    default:
+                        return name;
+                        break;
+                }
+                return name;
+            }
+        
+        $('#patient_zPhysicians').select2({
+                        placeholder: "Select team members",
+                        minimumInputLength: 2,
+                        allowClear: true,
+                        multiple: true,
+                        templateResult: formatPresenceTest,
+                        templateSelection: formatPresenceTest,
+                        ajax: {
+                            url: '{{ path('ajax_physician_search_by_term') }}',
+                            dataType: 'json',
+                            type: 'post',
+                            data: function (term, page) {
+                                var searchTerm = term.term.toUpperCase();
+                                return {//there are sent to server as params
+                                    term: searchTerm,
+                                    page_limit: 10,
+                                    allowself: true
+                                }
+                            },
+                            processResults: function (data, page) {
+                                return {
+                                    results: data.results
+                                };
+                            }
+                        }//,
+                    }
+            );
+        $('#patient_physician').select2(
+                    {
+                        placeholder: "Select Staff",
+                        minimumInputLength: 2,
+                        allowClear: true,
+                        multiple: false,
+                        templateResult: formatPresenceTest,
+                        templateSelection: formatPresenceTest,
+                        ajax: {
+                            url: '{{ path('ajax_physician_search_by_term') }}',
+                            dataType: 'json',
+                            type: 'post',
+                            data: function (term, page) {
+                                var searchTerm = term.term.toUpperCase();
+                                return {//there are sent to server as params
+                                    term: searchTerm,
+                                    page_limit: 10,
+                                    allowself: true
+                                }
+                            },
+                            processResults: function (data, page) {
+                                return {
+                                    results: data.results
+                                };
+                            }
+                        }//,
+                    }
+            );
+        
+
+
+        });
+        $('#patient_language').select2(
+        {
+            placeholder: "Select language",
+            allowClear: true,
+            width: "500px",
+            multiple: false,
+        });
+        function queryfunc(params) {
+            return {
+                q: params.term,
+                page: params.page
+            };
+        }
+        function processRes(data, params){
+            params.page = params.page || 1;
+            return {
+                results: data,
+                pagination: {
+                    more: (params.page * 30) < data.total_count
+                }
+            };
+        }
+
+        $('#location').val('Home');
+                
+                
+        $('#patient_agency').select2(
+        {
+            placeholder: "Select dept/practice",
+            ajax: {
+                    type: "POST",
+                    url: "{{ path('ajax_keywordsearch',{'keyword':'agency'}) }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: queryfunc,
+                    processResults: processRes,
+                    cache: true
+                },
+                
+        });
+        $('#patient_patientGroup').select2(
+        {
+            placeholder: "Select patientgroup",
+            ajax: {
+                    type: "POST",
+                    url: "{{ path('ajax_patient_group') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: queryfunc,
+                    processResults: processRes,
+                    cache: true
+                },
+                
+        });
+        $('#patient_questionset').select2(
+        {
+            placeholder: "Select questionset",
+            allowClear: true,
+            multiple: false
+        });
+        $('#patient_diagnosis1').select2(
+        {
+            placeholder: "Select primary diagnosis",
+            ajax: {
+                    type: "POST",
+                    url: "{{ path('ajax_diagnosis') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: queryfunc,
+                    processResults: processRes,
+                    cache: true
+                },
+            
+            multiple: true
+        });
+        $('#patient_diagnosis2').select2(
+        {
+            placeholder: "Select secondary diagnosis",
+            ajax: {
+                    type: "POST",
+                    url: "{{ path('ajax_diagnosis') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: queryfunc,
+                    processResults: processRes,
+                    cache: true
+                },
+            
+            multiple: true
+        
+        });
+        /*$('#patient_admitReason').select2(
+        {
+            placeholder: "Participation reason...",
+            allowClear: true,
+            width: "500px",
+            multiple: false
+        });
+        */
+        
+        $('#patient_birthdate').change(function(event){
+            $('#patient_birthdate').data("DateTimePicker").date(moment(event.target.value));
+
+        });
+        $('#patient_birthdate').datetimepicker({
+                format: 'MM-DD-YYYY',
+                maxDate: moment()
+        });
+
+        $('.open-datetimepicker').click(function(event){
+            event.preventDefault();
+            $('#patient_birthdate').click();
+        });
+
+        // Check patient id
+        //$('#patient_id').bind("keyup", function() {
+        $("#patient_id").focusout(function(){
+            $.ajax({
+                type: "POST",
+                url: "{{ path('search_by_patient_id') }}",
+                data: {patient_id: $('#patient_id').val()},
+                success: function(output){
+                    if(output.response == true){
+                        $(".invalid-json-label").remove();
+                        $("#patient_id").addClass("setHighlightRed");
+                        $("#patient_id").after('<span class="label label-danger invalid-json-label">Patient ID already exists</span>');
+                        $("#savePatientBtn").attr("disabled", true);
+                    } else {
+                        $("#patient_id").removeClass("setHighlightRed");
+                        $(".invalid-json-label").remove();
+                        $("#savePatientBtn").attr("disabled", false);
+                    }
+                }
+            });
+        });
+    </script>
+    {% endblock %}
+

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- printerClass="../src/PracticeUnite/CoreBundle/Tests/Lib/UnitTestResultPrinter.php" -->
+<!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
+<!-- // NOTE: https://github.com/sebastianbergmann/phpunit/issues/1171 on  processIsolation="false"-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="autoload.php"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         cacheTokens="false"
+         stopOnRisky="false"
+         stderr="true"
+         verbose="true">
+    
+    
+    <testsuites>
+        <testsuite name="Project Test Suite">
+<!-- the old list -->
+            <directory suffix="Test.php">../src/Navio/AdminBundle/Tests/</directory>
+            <directory suffix="Test.php">../src/Navio/UserBundle/Tests/</directory>
+            <directory suffix="Test.php">../src/Navio/WorkflowBundle//Tests/</directory>
+            <directory suffix="Test.php">../src/Navio/RMSPushNotificationsBundle/Tests/</directory>
+            <directory suffix="Test.php">../src/Navio/PublicBundle/Tests/Controller</directory>
+            <directory suffix="Test.php">../src/Navio/SyncBundle/Tests/Controller</directory>
+            <directory suffix="Test.php">../src/Navio/MessageBundle/Tests/Entity</directory>            
+            <directory suffix="Test.php">../src/Navio/HospitalBundle/Tests/Controller</directory>
+            <directory suffix="Test.php">../src/Navio/HospitalBundle/Tests/Lib</directory>
+            <directory suffix="Test.php">../src/Navio/MessageBundle/Tests/Controller</directory>
+            <directory suffix="Test.php">../src/Navio/MessageBundle/Tests/Command</directory>
+            <directory suffix="Test.php">../src/Navio/ConsultBundle/Tests/Controller</directory>
+            <directory suffix="Test.php">../src/Navio/NotificationBundle/Tests/Controller</directory>
+            <directory suffix="Test.php">../src/Navio/ReportingBundle/Tests/Controller</directory>
+            <!--<exclude suffix="Test.php">../src/Navio/MessageBundle/Tests/Controller/MsgApiLDAPControllerTest.php</exclude>-->
+            <!--<exclude suffix="Test.php">../src/Navio/HospitalBundle/Tests/Controller/TestConfig.php</exclude>-->
+            <!--<exclude suffix="Test.php">../src/PracticeUnite/CoreBundle/Tests/Lib/PruTestConfig.php</exclude>-->
+            <!--  These directories also exist:
+                        <directory>../src/Navio/AdminBundle/Tests/Controller</directory>
+            <directory>../src/Navio/ConsultBundle/Tests/Controller</directory>
+            <directory>../src/Navio/EngagementBundle/Tests/Controller</directory>
+            <directory>../src/Navio/FrameworkBundle/Tests/Controller</directory>
+            <directory>../src/Navio/HospitalBundle/Tests/Controller</directory>
+            <directory>../src/Navio/HospitalBundle/Tests/Entity</directory>
+            <directory>../src/Navio/HospitalBundle/Tests/Lib</directory>
+            <directory>../src/Navio/HospitalBundle/Tests/Service</directory>
+            <directory>../src/Navio/MessageBundle/Tests/Command</directory>
+            <directory>../src/Navio/MessageBundle/Tests/Controller</directory>
+            <directory>../src/Navio/MessageBundle/Tests/Entity</directory>
+            <directory>../src/Navio/NotificationBundle/Tests/Controller</directory>
+            <directory>../src/Navio/OAuthBundle/Tests/Controller</directory>
+            <directory>../src/Navio/PublicBundle/Tests/Controller</directory>
+            <directory>../src/Navio/RMSPushNotificationsBundle/Tests/DependencyInjection</directory>
+            <directory>../src/Navio/RMSPushNotificationsBundle/Tests/Message</directory>
+            <directory>../src/Navio/RegistryBundle/Tests/Controller</directory>
+            <directory>../src/Navio/ReportingBundle/Tests/Controller</directory>
+            <directory>../src/Navio/ServiceRecoveryBundle/Tests/Controller</directory>
+            <directory>../src/Navio/SyncBundle/Tests/Controller</directory>
+            <directory>../src/Navio/UserBundle/Tests/Controller</directory>
+            <directory>../src/Navio/WorkflowBundle/Tests/Controller</directory>
+            <directory>../src/PracticeUnite/CoreBundle/Tests/Controller</directory>
+            <directory>../src/PracticeUnite/OnCallBundle/Tests/Controller</directory>
+            -->
+            
+        </testsuite>        
+        <testsuite name="physician_related_tests">
+            <file>../src/Navio/HospitalBundle/Tests/Command/ProcessPhysicianGroupFileCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Entity/PhysicianRepoTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/PhysicianAjaxControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/PhysicianControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/GroupsControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/SpecialInterestControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/GroupsControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/UserControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/InsuranceAjaxControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/AccessRequestControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/PresenceStatusControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Entity/PhysicianRandomPinTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Entity/PhysicianRepoTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Service/RoleBasedLibTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Service/PhysicianSettingServiceTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Service/SendPilotGroupMessageTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/UpdateUserCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/UpdatePhysicianInsuranceCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/SpecialInterestCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/ClickReportCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/CentraStateCsvLoadTest.php</file>
+        </testsuite>
+        <testsuite name="hospital_related_tests">
+            <file>../src/Navio/HospitalBundle/Tests/Command/ChsliCsvRosterLoadTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/SurveyControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/AgencyControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/AlertsControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/AdminAlertsControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/LanguageControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/EventControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/HospitalControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/HospitalSettingCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/LocationControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/TemplateControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/AddressBookControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/BedControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/BedStatusControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/BedAjaxControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/ParticipationCodesControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/LanguageControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/LocationApiControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/DiagnosisControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/HospitalFloorControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/HospitalSettingControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/CreateAgencyLocationCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/RemoveAgencyLocationCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/ProcessAccessRequestCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/UpdateMetaInformationCommandTest.php</file>
+        </testsuite>
+        <testsuite name="oncall_related_tests">
+            <file>../src/Navio/HospitalBundle/Tests/Controller/OnCallControllerTest.php</file>
+        </testsuite>
+        <testsuite name="messaging_related_tests">
+            <file>../src/Navio/RMSPushNotificationsBundle/Tests/Message/AndroidMessageTest.php</file>
+            <file>../src/Navio/RMSPushNotificationsBundle/Tests/Message/iOSMessageTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Lib/ExploderControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/MsgApiControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Entity/PushNotiticationTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Command/BaseJsonCommandTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Command/SendJsonMessageCommandTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Command/SendMdmMessageCommandTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Command/SendJsonResultCommandTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/MsgApiControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/MsgApiLDAPControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/MsgContactsApiControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/LabResultsControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Controller/BlastControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/DeviceControllerTest.php</file>
+            <file>../src/Navio/MessageBundle/Tests/Command/SendSMSMessageCommandTest.php</file>
+        </testsuite>
+        <testsuite name="api_related_tests">
+            <file>../src/Navio/PublicBundle/Tests/Controller/WCTPControllerTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/HospitalAPIControllerTest.php</file>
+            <file>../src/Navio/PublicBundle/Tests/Controller/UniphyApiControllerTest.php</file>
+            <file>../src/Navio/PublicBundle/Tests/Controller/MobileApiControllerTest.php</file>
+        </testsuite>
+        <testsuite name="consult_related_tests">
+            <file>../src/Navio/ConsultBundle/Tests/Controller/DefaultControllerTest.php</file>
+            <file>../src/Navio/ConsultBundle/Tests/Controller/ConsultApiControllerTest.php</file>
+            <file>../src/Navio/ConsultBundle/Tests/Command/CreateConsultOMGCommandTest.php</file>
+            <file>../src/Navio/ConsultBundle/Tests/Command/ConsultExportToJsonCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/ClearConsultsCommandTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/DeleteConsultsCommandTest.php</file>
+        </testsuite>
+        <testsuite name="patient_related_tests">
+            <file>../src/Navio/HospitalBundle/Tests/Controller/PatientControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Controller/PatientAjaxControllerTest.php</file>
+            <file>../src/Navio/HospitalBundle/Tests/Command/PatientsViaADTCommandTest.php</file>
+        </testsuite>
+        <testsuite name="sync_related_tests">
+            <file>../src/Navio/HospitalBundle/Tests/Entity/UpdateMessageTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/SyncInPartsTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/SyncApiControllerTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/SyncDeletedUsersTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/SyncLocationTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/SyncControllerTest.php</file>
+            <file>../src/Navio/SyncBundle/Tests/Controller/ResponseControllerTest.php</file>
+        </testsuite>
+        <testsuite name="reports_related_tests">
+            <file>../src/Navio/ReportingBundle/Tests/Controller/ReportControllerTest.php</file>
+        </testsuite>
+        <testsuite name="engagement_related_tests">
+            <file>../src/Navio/EngagementBundle/Tests/Controller/PostWebControllerTest.php</file>
+            <file>../src/Navio/EngagementBundle/Tests/Command/PostExploderCommandTest.php</file>
+        </testsuite>
+        <testsuite name="word_list_repo_test">
+            <file>../src/Navio/HospitalBundle/Tests/Entity/WordListRepoTest.php</file>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <!-- the value is the FQCN of the application kernel -->
+        <env name="KERNEL_CLASS" value="AppKernel" />
+        <const name="DB_DSN" value="mysql:host=127.0.0.1;dbname=pu_test" />
+        <const name="DB_USER" value="root" />
+        <const name="DB_PASSWD" value="" />
+        <const name="DB_DBNAME" value="pu_test" />   
+    </php>
+
+    <filter>
+        <whitelist>
+            <exclude>
+                <file>../src/Navio/HospitalBundle/Controller/NHController.php</file>
+            </exclude>
+            <directory>../src/Navio/</directory>
+            <directory>../src/PracticeUnite/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

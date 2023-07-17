@@ -1,0 +1,9 @@
+.tab-pane {
+    width:100%;
+    margin: 0 auto;
+    text-align:center;
+}
+
+.printonly {
+    display: block;
+}

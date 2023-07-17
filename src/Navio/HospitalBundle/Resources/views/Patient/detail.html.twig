@@ -1,0 +1,507 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{ 'Member'|trans }} Detail{% endblock %}
+{% block page_title %}{{ 'Member'|trans }} Detail {% endblock %}
+
+{% block header_actions %}
+    <a class="btn btn-danger" href="{{ path('patient_list') }}" role="button"><i class="fa fa-times"></i></a>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# <link href="/jqueryUI/jquery-ui.css" rel="stylesheet"> #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+
+    <style type="text/css">
+
+        html,
+        body,
+        .chart-container {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 20px;
+        padding: 0;
+        }
+        .vitalsign-widget{
+            font-size: 14px;
+            color: #2972cd;
+            max-height: 120px;
+            display: block;
+            padding: 18px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #e7eaed;
+            -webkit-box-shadow: 0 0 2px 0 #e7eaed;
+            -moz-box-shadow: 0 0 2px 0 #e7eaed;
+            box-shadow: 0 0 2px 0 #e7eaed;
+        }
+        .vitalsign-widget:focus{
+            text-decoration: none;
+            color: #2972cd;
+        }
+        .vitalsign-widget-value{
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .load-container{
+            text-align: center;
+            font-size: 20px;
+            height: 100px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .vitalsign-widget-selected{
+            background-color: #f7f9fb;
+            text-decoration: none;
+        }
+        .vitalsign-widget-selected:hover{
+            color: #00a89e;
+        }
+        .vitalsign-widget-time{
+            font-size: 11px;
+            font-style: italic;
+            margin-left: 8px;
+        }
+        .vitalsign-widget-icon{
+            margin-bottom: 1px;
+            font-size: 30px;
+            display: block;
+        }
+        .vitalsign-widget-text{
+            margin: 6px 0px 3px 0px;
+        }
+        .text-subscript{
+            font-size: 10px;
+        }
+        .filters-section{
+            display: none;
+            height: 300px;
+            box-shadow: 10px 9px 8px -12px rgb(0 0 0 / 57%);
+        }
+        .hide-validation-error{
+            display: none;
+        }
+        .show-validation-error{
+            color: #ff0000;
+            font-size: 14px;
+            font-weight: normal;
+        }
+        .show-field-error-border{
+            border: 1px solid #FF0000;
+            margin-bottom: 4px;
+        }
+        .hide-field-error-border{
+            border: none;
+        }
+        .report-date-filters{
+            display: none;
+        }
+        .form-control{
+            /* font-size: 12px; */
+        }
+        .btn-report, .report-filter-label{
+            /* font-size: 12px; */
+        }
+        .ui-datepicker-title{
+            color: #000;
+        }
+    </style>
+{% endblock %}
+
+{% block app_content_inner %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 style="margin-bottom: 25px;">Vital Signs<span class="vitalsign-widget-time">(Last updated: 22 Oct 21 09:40)</span></h3> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <a href="#" class="dashboard-item vitalsign-widget" id="temp" style="" title="Temprature" onclick="loadVitalSignChart('temp')">
+                    <i class="fas fa-thermometer-three-quarters vitalsign-widget-icon"></i>
+                    <div class="vitalsign-widget-text">Temprature</div>
+                    <div class="vitalsign-widget-value">99.5</div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <a href="#" class="dashboard-item vitalsign-widget" id="bp" title="Blood Pressure" onclick="loadVitalSignChart('bp')">
+                    {# <i class="fa fa-stethoscope vitalsign-widget-icon"></i> #}
+                    <img src="/img/blood-pressure.png" />
+                    <div class="vitalsign-widget-text">Blood Pressure</div>
+                    <div class="vitalsign-widget-value">120/80</div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <a href="#" class="dashboard-item vitalsign-widget" id="hr" title="Heart Rate" onclick="loadVitalSignChart('hr')">
+                    <i class="fas fa-heartbeat vitalsign-widget-icon"></i>
+                    <div class="vitalsign-widget-text">Heart Rate</div>
+                    <div class="vitalsign-widget-value">90</div>
+                </a>
+            </div>            
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <a href="#" class="dashboard-item vitalsign-widget" id="resp" title="Respiration Rate" onclick="loadVitalSignChart('resp')">
+                    <i class="fas fa-lungs vitalsign-widget-icon"></i>
+                    <div class="vitalsign-widget-text">Respiration Rate</div>
+                    <div class="vitalsign-widget-value">17</div>
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4">
+                <a href="#" class="dashboard-item vitalsign-widget" id="o2sat" title="Oxygen Saturation Level" onclick="loadVitalSignChart('o2sat')">
+                    {# <i class="fa fa-stethoscope vitalsign-widget-icon"></i> #}
+                    <img src="/img/oxygen.png" />
+                    <div class="vitalsign-widget-text">O<span class="text-subscript">2</span> Sat</div>
+                    <div class="vitalsign-widget-value">97</div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 filters-section" id="chart-filters">
+                <div class="row">
+                    <div class="col-sm-12"><h3>Report Filters</h3></div>
+                    <div class="form-group col-lg-12" id="fromdate">
+                        <label class="report-filter-label">Date filter</label>
+                        <select type="text" name="filter_option" class="form-control" id="filter_option" onchange="showHideDateFilters(this.value)">
+                            <option value="" selected="">Selct Date Filter</option>
+                            <option value="1d">1 Day</option>
+                            <option value="7d">7 Days</option>
+                            <option value="30d">30 Days</option>
+                            <option value="custom">Custom Date Range</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-12 report-date-filters" id="fromdate">
+                        <label class="report-filter-label">From Date</label>
+                        <input type='text' name="start_date" class="form-control" id='from' placeholder="Select from date" autocomplete="off" readonly value=""/>
+                        <span id="from-date-error" class="hide-validation-error">From date field is required</span>
+                    </div>
+                    <div class="form-group col-lg-12 report-date-filters" id="todate">
+                        <label class="report-filter-label">To Date</label>
+                        <input type='text' name="end_date" class="form-control" id='to' placeholder="Select to date" autocomplete="off" readonly value=""/>
+                        <span id="to-date-error" class="hide-validation-error">To date field is required</span>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <button onclick="return filterVitalReport();" class="btn btn-success btn-icon btn-uc btn-report">Apply</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div id="chart-container" class="chart-container" style="display: none"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+
+            <table class="table table-bordered">
+                <tr>
+                    <td>{{ 'Name'|trans }}</td>
+                    <td>{{ item }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'PID'|trans }}</td>
+                    <td>{{ item.getPatientId() }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Gender'|trans }} </td>
+                    <td>{{ item.getGender() }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'DOB'|trans }} </td>
+                    <td>{{ item.getBirthdate()|date('m/d/Y') }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Location'|trans }} </td>
+                    <td>{{ item.getLocation() }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Address1'|trans }} </td>
+                    <td>{{ item.getAddr1 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Address2'|trans }} </td>
+                    <td>{{ item.getAddr2 }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'City'|trans }} </td>
+                    <td>{{ item.city }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'State'|trans }} </td>
+                    <td>{{ item.state }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Zip'|trans }} </td>
+                    <td>{{ item.zip }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Phone'|trans }} </td>
+                    <td>{{ item.Phone }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Language'|trans }} </td>
+                    <td>{{ item.getLanguage }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Agency'|trans }} </td>
+                    <td>{{ item.getAgency }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Team'|trans }} </td>
+                    <td>{{ item.getPatientGroup }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Question Set'|trans }} </td>
+                    <td>{{ item.getQuestionset }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Primary Diagnosis'|trans }} </td>
+                    <td>{% for d in item.getDiagnosis1 %}{{ d.name }}{% endfor %}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Secondary Diagnosis'|trans }} </td>
+                    <td>{% for d in item.getDiagnosis2 %}{{ d.name }}{% endfor %}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Physician'|trans }} </td>
+                    <td>{{ item.getPhysician }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Staff'|trans }} </td>
+                    <td>{% for d in item.getPhysicianPatients %}{{ d.physician }}{% endfor %}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Contact'|trans }} </td>
+                    <td>{{ item.getContact }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Contactphone'|trans }} </td>
+                    <td>{{ item.getContactPhone }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Issues'|trans }} </td>
+                    <td>{{ item.getIssues|raw }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Medcations'|trans }} </td>
+                    <td>{{ item.getMeds()|raw }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Notes'|trans }} </td>
+                    <td>{{ item.getNotes()|raw }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Lab'|trans }} </td>
+                    <td>{{ item.getLab|raw }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Hpi'|trans }} </td>
+                    <td>{{ item.getHpi|raw }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Participation reason'|trans }} </td>
+                    <td>{{ item.getAdmitReason }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Email'|trans }} </td>
+                    <td>{{ item.getEmail }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Tag'|trans }} </td>
+                    <td>{{ item.getTag }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js" type="text/javascript"></script>    
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-data-adapter.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    // Load Vital Sign Chart Data
+    function loadVitalSignChart(chartType){
+        // Reset filters options value
+        clearVitalSignFilters();
+        $("#chart-container").html("");
+        $("#chart-container").addClass("load-container");
+        $("#chart-container").css("display", "block");
+        $("#chart-filters").css("display", "none");
+        // Remove the selected class for all widgets
+        $(".vitalsign-widget").removeClass("vitalsign-widget-selected");
+        // Add selected widget class
+        $("#"+chartType).addClass("vitalsign-widget-selected");
+        $("#chart-container").html('<img src="/img/loader.gif" style="width: 100px" />');
+        var route = '{{ path('ajax_load_vital_sign',{'type': 'chart_type', 'id': item.getId() }) }}';
+        route = route .replace('chart_type', chartType);
+        anychart.data.loadJsonFile(route, function (data) {
+            $("#chart-container").html("");
+            $("#chart-container").css("display", "block");
+            $("#chart-filters").css("display", "block");
+            $("#chart-container").removeClass("load-container");
+            generateChart(data, chartType);
+        });
+    }
+
+    function generateChart(chartData, chartType){
+        // create data set on our data
+        var dataSet = anychart.data.set(chartData);
+        // map data for the first series, take x from the zero column and value from the first column of data set
+        var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
+        if(chartType == "bp"){
+            // map data for the second series, take x from the zero column and value from the second column of data set {for blood Pressure}
+            var secondSeriesData = dataSet.mapAs({ x: 0, value: 2 });
+        }
+
+        // create line chart
+        var chart = anychart.line();
+        // turn on chart animation
+        chart.animation(true);
+        // set chart padding
+        chart.padding([10, 20, 5, 20]);
+        // turn on the crosshair
+        chart.crosshair().enabled(true).yLabel(false).yStroke(null);
+        // set tooltip mode to point
+        chart.tooltip().positionMode('point');
+        // set chart title text settings
+        chart.title(
+            'Vital Sign - '+getChartTitle(chartType)
+        );
+        // set yAxis title
+        chart.yAxis().title('Values');
+        chart.xAxis().labels().padding(5);
+
+        // create first series with mapped data
+        var firstSeries = chart.line(firstSeriesData);
+        firstSeries.name(chartType == "bp"?'High':'Value');
+        firstSeries.hovered().markers().enabled(true).type('circle').size(4);
+        firstSeries
+            .tooltip()
+            .position('right')
+            .anchor('left-center')
+            .offsetX(5)
+            .offsetY(5);
+
+        if(chartType == "bp"){
+            // create second series with mapped data
+            var secondSeries = chart.line(secondSeriesData);
+            secondSeries.name('Low');
+            secondSeries.hovered().markers().enabled(true).type('circle').size(4);
+            secondSeries
+                .tooltip()
+                .position('right')
+                .anchor('left-center')
+                .offsetX(5)
+                .offsetY(5);
+        }
+
+        // turn the legend on
+        chart.legend().enabled(true).fontSize(13).padding([0, 0, 10, 0]);
+
+         var xLabels = chart.xAxis().labels();
+
+        chart.yAxis().labels().rotation(-90);
+        chart.xAxis().labels().rotation(-90);
+
+        // set container id for the chart
+        chart.container('chart-container');
+        // initiate chart drawing
+        chart.draw();
+    }
+
+    function getChartTitle(chartType){
+        let chartTitle = "";
+        if(chartType == "temp"){
+            chartTitle = "Temprature";
+        } else if(chartType == "bp"){
+            chartTitle = "Blood Pressure";            
+        } else if(chartType == "hr"){
+            chartTitle = "Heart Rate";            
+        } else if(chartType == "resp"){
+            chartTitle = "Respirattion Rate";            
+        } else if(chartType == "o2sat"){
+            chartTitle = "o2Sat";            
+        }
+        return chartTitle;
+    }
+    // Show/Hide date filters
+    function showHideDateFilters(getOptionType){
+        // alert(getOptionType);
+        $(".report-date-filters").css("display", "none");
+        if(getOptionType == "custom"){
+            $(".report-date-filters").css("display", "block");
+        }
+    }
+    function clearVitalSignFilters(){
+        var myElement = $("#filter_option");
+	    myElement.val(myElement.find('option').first().val());
+        $(".report-date-filters").css("display", "none");
+    }
+    $(document).ready(function () {
+        var d = new Date();
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        today = monthNames[d.getMonth()] + ' ' + d.getDate() + ' ' + d.getFullYear();
+
+        $('#from').datetimepicker({
+            defaultDate: "+1d",
+            // minDate: '2007/01/01',
+            maxDate: 0,
+            yearRange: '2007:' + new Date().getFullYear(),
+            dateFormat: 'yyy-dd-mm',
+            timeFormat:  'HH:mm:ss',
+            showOtherMonths: false,
+            changeMonth: true,
+            changeYear: true,
+            selectOtherMonths: true,
+            required: true,
+            showOn: "focus",
+            numberOfMonths: 1,
+            showSecond: true,
+        });
+
+        $('#from').change(function () {
+            //hideFromFieldErrors();  // remove error validation
+            var from = $('#from').datetimepicker('getDate');
+            var date_diff = Math.ceil((from.getTime() - Date.parse(today)) / 86400000);
+            var dim = daysInMonth(from.getMonth() + 1, from.getFullYear());
+
+            var minDate_d = $('#from').datetimepicker('getDate', '+1d');
+            minDate_d.setDate(minDate_d.getDate()); // Remove +1 with date because need to include the current date
+            var maxDate_d = date_diff + dim + 'd';
+
+            if (date_diff > -31) {
+                maxDate_d = 'today'
+            }
+            if (date_diff === 0) {
+                minDate_d = 'today'
+            }
+
+            $('#to').val('').removeAttr('disabled').removeClass('hasDatepicker').datetimepicker({
+                setDate: minDate_d,
+                dateFormat: 'yyy-dd-mm',
+                timeFormat:  'HH:mm:ss',
+                minDate: minDate_d,
+                maxDate: maxDate_d,
+                showOtherMonths: false,
+                changeMonth: true,
+                selectOtherMonths: true,
+                required: true,
+                showOn: "focus",
+                numberOfMonths: 1,
+                showSecond: true,
+            });
+        });
+
+        function daysInMonth(month, year) {
+            return new Date(year, month, 0).getDate();
+        }
+
+    });
+    </script>
+{% endblock %}

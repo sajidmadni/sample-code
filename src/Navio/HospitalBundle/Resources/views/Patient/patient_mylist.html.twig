@@ -1,0 +1,579 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Patients List{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+{% if search_page is not defined %}{% set search_page = "patient_mylist" %}{% endif %}
+{% if myPatients == 'Y' %}
+    {% set search_page_params = "?my_patients=1" %}
+{% endif %}
+
+{% block header_actions %}
+    {% include 'HospitalBundle:Default/Module:search.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/hospital/css/fontawesome-5-web/css/all.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/hospital/css/fontawesome-5-web/css/v4-shims.min.css') }}" rel="stylesheet">
+    <style type="text/css">
+        nav.utility > li i.big-icon {
+            font-size: 20px !important;
+        }
+        .btn-secondary{
+            padding: 4px 9px !important;
+            border-radius: 5px !important;
+            text-transform: uppercase !important;
+        }
+        /*
+        Checkbox as button CSS
+         */
+        .shiny-options-group {
+            display: flex;
+            justify-content: space-around;
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+
+        .shiny-options-group label {
+            float: left;
+        }
+
+        .shiny-options-group label {
+            display: inline-block;
+            width: 9%;
+            background-color: #FFFFFF;
+            color: #000;
+            font-size: 14px;
+            /*font-weight: bold;*/
+            text-align: center;
+            padding: 6px 14px;
+            border: 1px solid #CCCCCC;
+            cursor: pointer;
+        }
+
+        .shiny-options-group input{
+            display: none;
+        }
+
+        label input[type="radio"]:checked ~ span, .radio-btn-checked  {
+            color: #FFF;
+        }
+
+        .radio-inline.checked {
+            background-color: #2972cd;
+        }
+
+        .radio-inline.checked span {
+            color: white;
+        }
+        .radio-inline{
+            width: 100% !important;
+            border-radius: 8px !important;
+        }
+        /* Print PDF Modal */
+        .modal-print-right-border{
+            border-right: 1px solid #CCCCCC;
+        }
+        .modal-print-header{
+            padding: 0px 10px;
+            font-size: 15px;
+        }
+        .modal-print-header-left{
+
+        }
+        .modal-print-header-right{
+            border-right: 0px !important;
+        }
+        .print-header-active{
+            color: #000000 !important;
+            cursor: auto !important;
+        }
+        .open>.dropdown-menu{
+            margin-left: 0px !important;
+            padding: 10px;
+        }
+        .dropdown-item{
+            line-height: 25px;
+        }
+        .dropdown-toggle{
+            cursor: pointer;
+        }
+        .print-fields{
+            margin-left: 7px;
+        }
+        .print-element-row{
+            margin-top: 10px;
+        }
+        .hide-print-element{
+            display: none;
+        }
+        .greyed-out-elements{
+            color: #CCCCCC;;
+        }
+        .print-header-ul{
+            display: flex;
+            list-style: none;
+            padding-left: 0px !important;
+            margin-bottom: 2px !important;
+        }
+        .patient-header-items a{
+            text-decoration: none;
+        }
+    </style>
+    <link href="{{ asset('bundles/public/css/patient-info.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block app_content_inner %}
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="row" style="padding: 15px 0px;">
+                <div class="col-lg-6" style="margin-left: -46px;">
+                    <ul class="nav nav-tabs nav-pills ">
+                        {% if myPatients == 'Y' %}
+                            <li class="nav-item show" role="presentation">
+                                <button class="nav-link active" id="pat-details-tab" data-bs-toggle="tab" data-bs-target="#pat-details" type="button" role="tab" aria-controls="pat-details" aria-selected="true" onclick="window.location.href='{{ path("patient_mylist", {"my_patients" : 1}) }}'">My Patients</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pat-details-tab" data-bs-toggle="tab" data-bs-target="#pat-details" type="button" role="tab" aria-controls="pat-details" aria-selected="true" onclick="window.location.href='{{ path("patient_mylist") }}'">All Patients</button>
+                            </li>
+                        {% else %}
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pat-details-tab" data-bs-toggle="tab" data-bs-target="#pat-details" type="button" role="tab" aria-controls="pat-details" aria-selected="true" onclick="window.location.href='{{ path("patient_mylist", {"my_patients" : 1}) }}'">My Patients</button>
+                            </li>
+                            <li class="nav-item show" role="presentation">
+                                <button class="nav-link" id="pat-details-tab" data-bs-toggle="tab" data-bs-target="#pat-details" type="button" role="tab" aria-controls="pat-details" aria-selected="true" onclick="window.location.href='{{ path("patient_mylist") }}'">All Patients</button>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pat-details-tab" data-bs-toggle="tab" data-bs-target="#pat-details" type="button" role="tab" aria-controls="pat-details" aria-selected="true" onclick="window.location.href='{{ path("view-to-do-patient-task") }}'">Task List</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <span id="filter" style="position: absolute;right:15px;margin-top: 9px;">
+                                    {% set filterIconcolor = "#00a89e" %}
+                                    {% if (sortBy is defined and sortBy is not empty) or (admin_group_selected is defined and admin_group_selected is not empty)  %}
+                                        {% set filterIconcolor = "#2972cd" %}
+                                    {% endif %}
+                                    {% if hand_off_enabled == "Y" %}
+                                        <a href="{{ path('desktop_mark_all_patients_unseen') }}" class="btn btn-success">Reset all patients as not seen.</a>
+                                    {% endif %}
+                                    <a href="javascript:void(0);" data-toggle="modal" class="btn btn-primary" data-target="#filterModal" style="padding: 7px 9px;font-size: 12px;background-color: {{ filterIconcolor }}"><i class="fa fa-filter" aria-hidden="true"></i></a>
+                                    {% if hand_off_enabled == "Y" %}
+                                        <a href="javascript:void(0);" data-toggle="modal" class="btn btn-primary" data-target="#printPatientModal"><i class="fa fa-print" aria-hidden="true"></i></a>
+                                    {% endif %}
+                                    {#                    <select class="admin_group_picker form-control" id="admin_group_picker" style="margin-bottom: 20px;">#}
+                                    {#                            <option  selected value>#}
+                                    {#                                 -- select group --#}
+                                    {#                            </option>#}
+                                    {#                            {% for group in admin_groups %}#}
+                                    {#                                <option {% if admin_group_selected is defined and admin_group_selected == group.id %} selected {%endif%} value={{group.id}}> {{group.name}} </option>#}
+                                    {#                            {% endfor %}#}
+                                    {#                    </select>#}
+                                </span>
+                </div>
+            </div>
+            {% if team|length>1 %}
+                <div class="text-center " style="color: white;font-weight: bold;padding: 0.2rem;margin-bottom:1rem;background-image: linear-gradient(to right, #00a89e , #4ac1b9);"> {{team}}</div>
+            {% endif %}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birth Date</th>
+                    <th>Location</th>
+                    {% if hand_off_enabled == "Y" %}
+                        <th>Last Seen</th>
+                    {% endif %}
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if record %}
+                    {% for patient in record %}
+                        <tr>
+                            <td>
+                                {% set birthDt = date(patient.birthdate) %}
+                                {% set patientDetailsParam = "all" %}
+                                {% if search_page_params is defined %}
+                                    {% set patientDetailsParam = 1 %}
+                                {% endif %}
+                                <a href="{{ path('patient-info-update',{'patientId':patient.id, 'my_patients':patientDetailsParam}) }}">
+                                    {{ patient.last_name }}, {{ patient.first_name }} ( Age:{{ date('now').diff(birthDt).format('%y') }} )
+                                    <br />
+                                    MRN: {% if patient.mrn %}{{ patient.mrn }}{% else %}n/a{% endif %}
+                                </a>
+                                {%
+                                    if
+                                    (patient.updated_at > patient.last_viewed)
+                                %}
+                                    <span id="messageBadgeCount" class="nav-notification" style="/* right: 10px; *//* top: 13px; */background-color: #ff0000;border-radius: 11px;color: white;font-size: 9px;font-weight: bold;height: 16px;/* line-height: 10px; */min-width: 8px;padding: 4px 6px;/* position: absolute; */right: 3px;text-align: center;top: 6px;z-index: 100;">New</span>
+                                {% endif %}
+                            </td>
+                            <td>
+
+                                {% if patient.birthdate %}
+                                    {{ patient.birthdate | date('m/d/Y') }}
+                                {% else %}
+                                    NA
+                                {% endif %}
+                            </td>
+                            <td>{{ patient.location }}</td>
+
+                            {% if hand_off_enabled == "Y" %}
+                                <td>
+                                    {#                                    {% if patient.last_seen_date %}#}
+                                    {#                                        {% if app.user.hospital.timeZone is defined and app.user.hospital.timeZone is not null %}#}
+                                    {#                                            {{ patient.last_seen_date|date('m/d/Y  H:i A', app.user.hospital.timeZone) }}#}
+                                    {#                                        {% else %}#}
+                                    {#                                            {{ patient.last_seen_date|date('m/d/Y  H:i A') }}#}
+                                    {#                                        {% endif %}#}
+                                    {#                                    {% endif %}#}
+                                    {% if patient.last_seen_date %}
+                                        {{ patient.last_seen_date }}
+                                    {% endif %}
+                                    <a href="{{ path('desktop_mark_patient_seen',{'patientId':patient.id}) }}" class="btn btn-success">Mark seen</a>
+                                </td>
+                            {% endif %}
+
+                            {#                            <td>{{ patient.getPatientGroup()?patient.getPatientGroup().name:'n/a' }}</td>#}
+                            <td>
+                                {#                                {% if patient.user %}#}
+                                {#                                    {% if patient.user.isActive %}#}
+                                {#                                        <i class="fa fa-comment-o send-message" data-member-id="{{ patient.id }}" style="cursor:pointer;"></i>#}
+                                {#                                    {% endif %}#}
+                                {#                                {% endif %}#}
+                                <a href="#" class="btn btn-default"><i class="fa fa-users careTeamInfo sp" title="View Care Team"
+                                                                       data-staff-id="{{ patient.id }}"
+                                                                       data-name="{{ patient.last_name }}, {{ patient.first_name }}"
+                                            {#                                                                       data-dob="{{ patient.getBirthdate()|date('m/d/Y') }}"#}
+                                                                       data-dob="{{ patient.birthdate }}"
+                                                                       data-list="1"></i></a>
+
+                                {% if pcc == 1 %}
+                                    <a href="{{ path('list_message',{'id':patient.id,'fn':patient.first_name,'ln':patient.last_name}) }}" class="btn btn-default"><i class="fa fa-comment-o" data-staff-id="{{ patient.id }}" title="Send Message" data-title="{{ patient.first_name }}{{ patient.last_name }}"></i></a>
+                                {% endif %}
+                                {% if hand_off_enabled != "Y" %}
+                                    <a href="{{ path('patient_edit',{'id':patient.id}) }}" class="btn btn-default"><i class="fa fa-pencil" title="Edit"></i></a>
+                                    <a href="{{ path('mypatient_delete',{'id':patient.id}) }}" class="btn btn-default"><i class="fa fa-times" title="Remove"></i></a>
+                                {%else %}
+
+                                    <a href="{{ path('patient-info-update',{'patientId':patient.id, 'my_patients':patientDetailsParam}) }}" class="btn btn-default"><i class="fas fa-notes-medical" title="Add Notes"></i></a>
+                                    {% if patient.isCompleted == patient.total %}
+                                        <a href="{{ path('view-patient-task',{'patientId':patient.id}) }}" class="btn btn-default "><i class="fa fa-check-circle-o" title="View"></i></a>
+                                    {% elseif '1' in patient.isStat%}
+                                        <a href="{{ path('view-patient-task',{'patientId':patient.id}) }}" class="btn btn-default "><i class="fa fa-exclamation-circle" title="View"></i></a>
+                                    {% else%}
+                                        <a href="{{ path('view-patient-task',{'patientId':patient.id}) }}" class="btn btn-default "><i class="fa fa-check-circle yellow" title="View"></i></a>
+                                    {% endif %}
+
+                                {% endif %}
+
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="9">Could not find patients!</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+            {% include 'HospitalBundle:Default/Module:pagination.html.twig' %}
+        </div>
+
+    </div>
+
+    {% include 'MessageBundle:Default/Modal:message_modal.html.twig' %}
+    {% include 'HospitalBundle:Default/Module:patient_careTeam.html.twig' %}
+
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="font-weight: bold;">Filter</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -20px !important;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form row">
+                            <div class="col-md-12" style="font-weight: bold;">Group</div>
+                        </div>
+                        <div class="form row" style="margin-top: 10px;">
+                            <div class="col-md-6">
+                                <select class="admin_group_picker form-control" id="admin_group_picker" style="margin-bottom: 20px;">
+                                    <option  selected value>-- Select group --</option>
+                                    {% for group in admin_groups %}
+                                        <option {% if admin_group_selected is defined and admin_group_selected == group.id %} selected {%endif%} value={{group.id}}> {{group.name}} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form row" style="border-top: 1px solid #CCCCCC;padding-top:10px;padding-bottom: 10px">
+                            {% set resultOnlyChecked = (resultsOnly is defined and resultsOnly==1) ? "checked" : "" %}
+                            <div class="col-md-12" style="font-weight: bold;">Filter with results only</div>
+                            <div class="col-md-12" style="padding-top: 4px"><input type="checkbox" {{ resultOnlyChecked }} id="results_filter_only"><span class="print-fields">With Results</span></div>
+                        </div>
+                        <div class="form row" style="border-top: 1px solid #CCCCCC;padding-top:10px;">
+                            <div class="col-md-12" style="font-weight: bold;">Sort by</div>
+                        </div>
+                        <div class="form row shiny-options-group" style="margin-top: 10px;">
+                            <div class="col-md-3">
+                                {% set firstNameChecked = (sortBy is defined and sortBy == "first_name") ? "checked" : "" %}
+                                <label class="radio-inline {{ firstNameChecked }}">
+                                    <input type="radio" name="sort_by" {{ firstNameChecked}} value="first_name">
+                                    <span>First Name</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                {% set lastNameChecked = (sortBy is defined and sortBy == "last_name") ? "checked" : "" %}
+                                <label class="radio-inline {{ lastNameChecked }}">
+                                    <input type="radio" name="sort_by" {{ lastNameChecked }} value="last_name">
+                                    <span>Last Name</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                {% set locationChecked = (sortBy is defined and sortBy == "location") ? "checked" : "" %}
+                                <label class="radio-inline {{ locationChecked }}">
+                                    <input type="radio" name="sort_by" {{ locationChecked }} value="location">
+                                    <span>Location</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="text-align: center !important; border: none !important;">
+                    <button type="button" class="btn btn-primary" id="applyFilter" style="padding: 4px 25px !important">Apply</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearFilters()" style="padding: 4px 25px !important">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="printPatientModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <ul class="print-header-ul" style="">
+                        {% if patientInformation is not null %}
+                            {% set patientInfoCounter = 1 %}
+                            {% set patientInfoTotalElements = patientInformation|length %}
+                            {% for patientInfokey, patientInfoItems in patientInformation %}
+                                {% set headerDivId = patientInfoCounter ~ '_' ~ patientInfokey|replace({' ': ''}) %}
+                                {% if patientInfoCounter <= 6 %}
+                                    <li class="modal-print-right-border modal-print-header modal-print-header-left {% if patientInfoCounter == 1 %} modal-print-header-left {% endif %}">
+                                        <a class="patient-header-items {% if patientInfoCounter == 1 %} print-header-active {% endif %}" id="{{ headerDivId }}" href="javascript:void(0);" onclick="showHidePrintHeaders('{{ headerDivId }}','{{ patientInfokey|replace({' ': ''}) }}')">{{ patientInfokey|title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="modal-print-right-border modal-print-header modal-print-header-right">
+                                        <div class="dropdown">
+                                            <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                            </span>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" id="{{ headerDivId }}" href="javascript:void(0);" onclick="showHidePrintHeaders('{{ headerDivId }}','{{ patientInfokey|replace({' ': ''}) }}')">{{ patientInfokey|title }}</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                                {% set patientInfoCounter = patientInfoCounter + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -22px !important;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="patientPDFForm" method="POST" action="{{ path('patient_info_pdf') }}" onsubmit="return validatePrintPatientFields()" target="_blank">
+                    <div class="modal-body pdf-modal-body">
+                        {% if patientInformation is not null %}
+                            {% set patientInfomationCounter = 1 %}
+                            {% for patientInfokey, patientInfoItems in patientInformation %}
+                                {% if patientInfoItems.fields is defined and patientInfoItems.fields|length > 0 %}
+                                    <div id="{{ patientInfokey|replace({' ': ''}) }}" {% if patientInfomationCounter > 1 %} class="hide-print-element" {% endif %}>
+                                        <div class="form row">
+                                            <div class="col-md-12"><input type="checkbox" id="all_checkbox_{{ patientInfokey|replace({' ': ''}) }}" onclick="enableAllFields('{{ patientInfokey|replace({' ': ''}) }}')"><span class="print-fields">All Fields</span></div>
+                                        </div>
+                                        <div class="form row elements_checkboxes_{{ patientInfokey|replace({' ': ''}) }}">
+
+                                            {% for patientInfoFieldskey, patientInfoFields in patientInfoItems.fields %}
+                                                {% set defaultChecked = '' %}
+                                                {% set greyedOutClass = '' %}
+                                                {% if patientInfoFields.map == "first_name" or patientInfoFields.map == "last_name" or patientInfoFields.map == "birth_date" or patientInfoFields.map == "mrn" or patientInfoFields.map == "location" %}
+                                                    {% set defaultChecked = 'checked' %}
+                                                    {% set greyedOutClass = 'greyed-out-elements' %}
+                                                {% endif %}
+                                                <div class="col-md-6 print-element-row {{ greyedOutClass }}"><input class="pdf-checkbox-elements" onclick="deselectCheckAll('{{ patientInfokey|replace({' ': ''}) }}', '{{ patientInfoFields.id }}')" type="checkbox" {{ defaultChecked}} name="{{ patientInfoFields.id }}"><span class="print-fields">{{ patientInfoFields.label }}</span></div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% set patientInfomationCounter = patientInfomationCounter + 1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer" style="text-align: center !important;margin-top: 15px;">
+                        <button type="submit" class="btn btn-primary" style="padding: 4px 25px !important" onclick="return printPatientPdf()">Print</button>
+                    </div>
+                    <input type="hidden" name="selected_group_id" value="{% if admin_group_selected is defined %}{{admin_group_selected}}{%endif%}">
+                    <input type="hidden" name="filtered_search_term" value="{% if search_term is defined %}{{search_term}}{%endif%}">
+                    <input type="hidden" name="filtered_my_patients" value="{% if myPatients is defined %}{{myPatients}}{%endif%}">
+                    <input type="hidden" name="filtered_sort_by" value="{% if sortBy is defined %}{{sortBy}}{%endif%}">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% include 'MessageBundle:Default/Modal:message_modal.js.twig' %}
+    {% include 'HospitalBundle:Default/Module:patient_careTeam.js.twig' %}
+    {#    {% include 'HospitalBundle:Patient:load-patient-task-for-group.js.twig' with {'loc':"patient_mylist"} %}#}
+    {% set loc = "patient_mylist" %}
+    <script>
+        $(document).ready(function () {
+            $('#applyFilter').click(function(e){
+                e.preventDefault();
+                var groupId = $("#admin_group_picker").val();
+                var sortBy = "";
+                if($("input[name='sort_by']:checked").val()){
+                    sortBy = $("input[name='sort_by']:checked").val();
+                }
+                var resultsOnly = $('#results_filter_only').prop('checked');
+                //alert(sortBy);
+                var url = '{{path(loc)}}';
+
+                if ("{{ app.request.uri }}".indexOf('mobile') !== -1){
+                    url = '{{path(loc)}}';
+                }
+                if ("{{ app.request.uri }}".indexOf('stat') !== -1) {
+                    url = url+'-stat'
+                }
+                if (groupId){
+                    url = url+'/'+groupId;
+                }
+
+                {% if search_page_params is defined %}
+                url = url+'?my_patients=1';
+                {% endif %}
+                if (sortBy != ""){
+                    if(url.includes("?")){
+                        url = url+'&sort_by='+sortBy;
+                    } else {
+                        url = url+'?sort_by='+sortBy;
+                    }
+                }
+                if(resultsOnly)
+                {
+                    if(url.includes("?")){
+                        url = url+'&resultsOnly=1';
+                    } else {
+                        url = url+'?resultsOnly=1';
+                    }
+                }
+
+                $.post(url, { 'groupId': groupId}, function() {
+                    window.location = url;
+                });
+            });
+        });
+        function clearFilters(){
+            {% set currentPath = app.request.uri %}
+            currentURL = "{{ currentPath }}"
+            if(currentURL.includes("my_patients")){
+                var redirectURL = "{{ baseURL }}"+"{{ path('patient_mylist') }}?my_patients=1"
+            }
+            if(!currentURL.includes("my_patients")){
+                var redirectURL = "{{ baseURL }}"+"{{ path('patient_mylist') }}"
+            }
+            window.location.href = redirectURL;
+        }
+
+        $('.radio-inline input').click(function(){
+            $(this).closest('.shiny-options-group')
+                .find('.radio-inline')
+                .removeClass('checked');
+            $(this).parent()
+                .addClass('checked');
+        });
+    </script>
+    <script type="application/javascript">
+        function showHidePrintHeaders(headerDivId, getDivElement){
+            $(".modal-print-header a").removeClass("print-header-active");
+            $("#"+headerDivId).addClass("print-header-active");
+            console.log("#"+headerDivId);
+            $(".pdf-modal-body").children().addClass("hide-print-element");
+            $("#"+getDivElement).removeClass("hide-print-element");
+        }
+        function enableAllFields(elementDivId){
+            //all_checkbox_
+            if($('#all_checkbox_'+elementDivId).is(':checked')){
+                $('#'+elementDivId).find('input[type=checkbox]').prop('checked',true);
+                $(".elements_checkboxes_"+elementDivId).addClass("greyed-out-elements");
+            } else {
+                $('#'+elementDivId).find('input[type=checkbox]').prop('checked',false)
+                $(".elements_checkboxes_"+elementDivId).removeClass("greyed-out-elements");
+            }
+            // Checked & Add greyed out class for first name, last name, dob & MRN
+            enabledDefaultOptions();
+        }
+        function validatePrintPatientFields(){
+            if (!$(".modal-body input:checkbox:checked").length > 0){
+                alert("Please checked any of value");
+                return false;
+            }
+            //if(!$('#first_name').is(':checked') || !$('#last_name').is(':checked') || !$('#birth_date').is(':checked') ){
+            if(!$('input[name="1"]').is(':checked') || !$('input[name="2"]').is(':checked') || !$('input[name="3"]').is(':checked') ){
+                alert("You can't unchecked first name, last name and date of birth");
+                return false;
+            }
+            return true;
+        }
+        function printPatientPdf(){
+            if(!validatePrintPatientFields()){
+                return false;
+            }
+            $('#patientPDFForm').submit();
+        }
+        function deselectCheckAll(infoKey, fieldNameVal){
+            if(fieldNameVal != 1 && fieldNameVal != 2 && fieldNameVal != 3){
+                // Remove Check all checkbox if any of element is checked
+                $('#all_checkbox_'+infoKey).prop('checked',false);
+                // Remove greyed out under the section if any of element is checked
+                $('#'+infoKey+' .greyed-out-elements').removeClass('greyed-out-elements');
+            }
+            // Checked & Add greyed out class for first name, last name, dob & MRN
+            enabledDefaultOptions();
+        }
+        $(".pdf-checkbox-elements").on("click", function (e) {
+            var checkbox = $(this);
+            var checkedName = checkbox.attr("name");
+            // Greyed out the first name, last name and dob + don't to uncheck
+            if (checkedName == 1 || checkedName == 2 || checkedName == 3) {
+                $( "input[name='+checkedName+']" ).parent().addClass('greyed-out-elements');
+                e.preventDefault();
+                return false;
+            }
+        });
+        function enabledDefaultOptions(){
+            $("input[name='1']").prop('checked',true);
+            $("input[name='2']").prop('checked',true);
+            $("input[name='3']").prop('checked',true);
+            $("input[name='4']").prop('checked',true);
+            $("input[name='5']").prop('checked',true);
+            $("input[name='1']").parent().addClass('greyed-out-elements');
+            $("input[name='2']").parent().addClass('greyed-out-elements');
+            $("input[name='3']").parent().addClass('greyed-out-elements');
+            $("input[name='4']").parent().addClass('greyed-out-elements');
+            $("input[name='5']").parent().addClass('greyed-out-elements');
+        }
+    </script>
+{% endblock %}

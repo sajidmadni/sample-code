@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Practice Unite{% endblock %}</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="../../favicon.ico?v=2" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../favicon.ico?v=2" type="image/x-icon"/>
+
+    <!-- CSS -->
+    {% block stylesheets %}
+        {% stylesheets
+        '@HospitalBundle/Resources/public/css/app.css'
+        '@HospitalBundle/Resources/public/css/app-2.css'
+        '@HospitalBundle/Resources/public/css/form.css'
+        filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+
+    <!--[if gte IE 9]>
+    {% stylesheets '@HospitalBundle/Resources/public/css/app-ie9.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style>
+.alert
+{
+    font-size: 1.3em;
+    padding: 0.5em;
+    text-align: left;
+    white-space: pre-line;
+    word-wrap: normal;
+    color: #000000;
+    background-color:LightGray;
+    border: 2px solid black;
+    z-index:999;
+
+
+}
+.ui-dialog-titlebar {
+ display:none;
+}
+
+.ui-dialog-content{
+  position: absolute;
+}
+
+
+
+</style>
+
+</head>
+
+{% import _self as forms %}
+
+{% macro nameWithPresence(phy) %}
+    {% if phy.fullName is defined %}
+    {% set name = phy.fullName %}
+    {% set prs = phy.presence %}
+    {% if phy.getCoveringPhysician is defined  and phy.getCoveringPhysician is not null %}
+            <i class="fa fa-circle-thin presence-covered"></i> {{ name }}
+    {% elseif not phy.isActive %}
+            <i class="fa inactive presence-inactive"></i> {{ name }}
+    {% elseif  prs == 'unavailable' %}
+            <i class="fa fa-circle presence-unavailable"></i> {{ name }}
+    {% elseif  prs is same as("inactive") %}
+            <i class="fa inactive presence-inactive"></i> {{ name }}
+    {% elseif  phy.isDnd() %}
+            <i class="fa fa-circle presence-dnd"></i> {{ name }}
+    {% else  %}
+            <i class="fa fa-circle presence-active"></i> {{ name }}
+    {% endif  %}
+    {% else %}
+    {% set name = app.user.fullname %}
+    <i class="fa fa-circle presence-active"></i> {{ name }}
+    {% endif %}
+{% endmacro %}
+
+
+
+
+<body class="content{% block additional_body_classes %} content-has-header{% endblock %}">
+
+    <header class="main">
+        <a href="{{ path('user_home') }}" title="home page" class="logo"><img src="/img/logo.png" />Practice Unite</a>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <nav class="utility">
+            {%  if app.user.hospital.name is defined  %}
+            <li class="no-link"><i class="fa fa-hospital-o big-icon icon-margin"></i>{{ app.user.hospital.name }}</li><!--
+                -->{% endif %}<li class="has-icon-with-space">
+                <a href="{{ path('physician_passreset') }}" title="password reset"><i class="fa fa-user big-icon icon-margin"></i>
+                    {% if app.user.employee is defined %}
+                        {{ forms.nameWithPresence(app.user.employee) }}
+                    {% else %}
+                        {{ app.user.fullname }}
+                    {% endif %}
+                </a>
+                {#<ul>#}
+                    {#<li><a href="{{ path('physician_passreset') }}"><i class="fa fa-asterisk"></i>Change Password</a></li>#}
+                {#</ul>#}
+            </li><!--
+            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                --><li><a href="{{ path('home', {'_switch_user': '_exit'}) }}" title="Exit impersonation"><i class="fa fa-eye-slash big-icon"></i></a></li><!--
+            {% endif %}
+            --><li id="messageNavBtn" class="has-dark-bg">
+                <span id="messageBadgeCount" class="nav-notification hidden"></span>
+                <a href="{{ path('list_message')}}" title="Secure Messaging"><i class="fa fa-comments big-icon"></i></a>
+            </li><!--
+            {% if is_granted('ROLE_PRIV_READ_CONSULT') %}
+            --><li id="consultNavBtn" class="has-dark-bg">
+                <span id="consultBadgeCount" class="nav-notification hidden"></span>
+                <a href="{{ path('consults_list', {'type': 'Consult'}) }}"><i class="fa fa-user-md big-icon" title={{ app.session.get('consults_component_title')}}></i></a>
+            </li><!--
+            {% endif %}
+            {% if is_granted('ROLE_PRIV_READ_REFERRAL') %}
+            --><li id="consultNavBtn" class="has-dark-bg">
+                <span id="referralBadgeCount" class="nav-notification hidden"></span>
+                <a href="{{ path('consults_list', {'type': 'Referral'}) }}"><i class="fas fa-people-arrows big-icon" title={{ app.session.get('referral_component_title')}}></i></a>
+            </li><!--
+            {% endif %}
+
+            --><li id="notificationNavBtn" class="has-dark-bg">
+                <span id="notificationBadgeCount" class="nav-notification hidden"></span>
+                <div class="dropdown">
+                 <button onclick="list()" class="dropdown-toggle"><i class="fa fa-bell" title="Notifications"></i></button>
+                <div id="myDropdown" class="dropdown-menu">
+                <a href="{{ path('list_message')}}"> MSg<span id="messageBadgeCount" class="nav-notification "></span></a>
+                <a href="{{ path('consults_list', {'type': 'Consult'}) }}">{{app.session.get('consults_component_title')}}</a>
+                <a href="{{ path('consults_list', {'type': 'Referral'}) }}">{{app.session.get('referral_component_title')}}</a>
+                <a href="#">Link 3</a>
+                </div>
+                </div>
+            </li><!--
+
+
+            --><li class="has-dark-bg"><a href="{{ path('settings_page') }}" title="Settings..."><i class="fa fa-cog big-icon"></i></a></li><!--
+            --><li class="has-dark-bg"><a href="{{ path('fos_user_security_logout') }}" title="Logout"><i class="fa fa-power-off big-icon"></i></a></li>
+        </nav>
+        {% endif %}
+    </header>
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {% block navigation %}
+    <aside class="menu{% block additional_menu_classes %}{% endblock %}">
+
+        {% if show_menu_hide_buttons is defined %}
+        <a href="#" class="hide-menu"><i class="fa fa-angle-double-left"></i></a>
+        <a href="#" class="show-menu"><i class="fa fa-angle-double-right"></i></a>
+        {% endif %}
+
+        <nav class="side">
+            <h3><i class="fa fa-group fa-fw"></i><span>Directories</span></h3>
+            <ul>
+                <li>- <a href="{{ path('physician_list') }}">Staff List</a></li>
+                {% if is_granted('ROLE_PRIV_VIEW_DEPT_PATIENTS') or is_granted('ROLE_PRIV_VIEW_HOSP_PATIENTS') %}
+                    <li>- <a href="{{ path('patient_list') }}">{{ 'Member'|trans }} List</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li>- <a href="{{ path('user_list_hadmins') }}">Hospital Admins</a></li>
+                    <li>- <a href="{{ path('user_list_aadmins') }}">{{ 'Agency'|trans }} Admins</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_PRIV_EDIT_HOSP_PATIENTS')  or is_granted('ROLE_PRIV_EDIT_HOSPITALS') %}
+                    <li>- <a href="{{ path('user_list') }}">Web User List</a></li>
+                    <li>- <a href="{{ path('device_list') }}">Devices</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_HOSPITAL_ADMIN') or  is_granted('ROLE_SUPER_ADMIN') %}
+                <li>- <a href="{{ path('deleted_staff_list') }}">Deleted Staff</a></li>
+                <li>- <a href="{{ path('dpatient_list') }}">Deleted Patients</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% if is_granted('ROLE_PRIV_VIEW_ONCALL_NOW') %}
+            <nav class="side">
+                <h3><i class="fa fa-suitcase fa-fw"></i>On Call</h3>
+                <li>- <a href="{{ path('on_call_now')}}">Currently</a></li>
+                {% if is_granted('ROLE_PRIV_VIEW_ONCALL_CAL') %}
+                    <li>- <a href="{{ path('on_call_view')}}">Monthly</a></li>
+                {% endif %}
+            </nav>
+        {% endif %}
+        {% if is_granted('ROLE_PRIV_VIEW_REPORTS') %}
+        <nav class="side">
+            <h3><i class="fa fa-area-chart fa-fw"></i>Reports</h3>
+            <ul>
+                <li>- <a href="{{ path('reports_bylastdate')}}">Latest</a></li>
+                <li>- <a href="{{ path('reports_late')}}">Late</a></li>
+                <li>- <a href="{{ path('reports_bydate')}}">Full List</a></li>
+                <li>- <a href="{{ path('reports_trend')}}">Trends</a></li>
+            </ul>
+        </nav>
+        {%  endif %}
+        {% if is_granted('ROLE_PRIV_BEDBOARD_ADMIN') %}
+            <nav class="side">
+                <h3><i class="fa fa-hotel  fa-fw"></i>Bed Management</h3>
+                <li>- <a href="{{ path('bed_board_list')}}">Beds</a></li>
+            </nav>
+        {% endif %}
+        {% if is_granted('ROLE_PRIV_SERVICERECOVERY_ADMIN') %}
+            <nav class="side">
+                <h3><i class="fa fa-apple  fa-fw"></i>Service Recovery</h3>
+                <li>- <a href="{{ path('SRreports_list')}}">Reports</a></li>
+            </nav>
+        {% endif %}
+    </aside>
+    {% endblock %}
+
+    {% block sidemenu %}{% endblock %}
+
+    <header class="page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h1>{% block page_title %}{% endblock %}</h1>
+                </div>
+                <div class="col-lg-8 text-right header-buttons">
+                    {% block header_actions %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </header>
+    {% endif %}
+
+    {% block app_content %}
+    <section class="{% block content_inner_core_classes %}content-inner content-inner-with-padding{% endblock %}{% block content_inner_additional_classes %}{% endblock %}">
+        {% for type, messages in app.session.flashbag.all() %}
+            <div class="container-fluid">
+
+                <div class="col-lg-12">
+                    {% for message in messages %}
+                        {#<div class="alert alert-{{ type }}">#}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endfor %}
+
+        {% block app_content_inner %}{% endblock %}
+    </section>
+    {% endblock %}
+
+    {% block javascript_app_templates %}{% endblock %}
+
+<!-- JS -->
+{% block javascripts %}
+
+    {% javascripts
+    '@HospitalBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+
+    <script type="text/javascript">
+
+        {# TODO: Needs to be refactored into global JS file #}
+
+        $( document ).ready(function() {
+
+            var ajaxWorking = false;
+
+            //  Init
+            getMessageCounts();
+
+            //  Get the message counts every 60 seconds
+            setTimeout(getMessageCounts, 60000);
+
+            function getMessageCounts()
+            {
+                if(ajaxWorking)
+                    return;
+
+                $.ajax({
+                    url: '{{ path('notification_api_counts') }}',
+                    dataType: 'json',
+                    beforeSend: function() {
+                        ajaxWorking = true;
+                    }
+                })
+                .done(function(response) {
+
+                    ajaxWorking = false;
+
+                    if( response.success )
+                    {
+                        //  Update Consults Message Count
+                        if( response.consult_count && response.consult_count !== '0' )
+                            $('#consultBadgeCount').html(response.consult_count).removeClass('hidden');
+                        else
+                            $('#consultBadgeCount').html('').addClass('hidden');
+                        
+                        if( response.referral_count && response.referral_count !== '0' )
+                            $('#referralBadgeCount').html(response.referral_count).removeClass('hidden');
+                        else
+                            $('#referralBadgeCount').html('').addClass('hidden');
+                        
+                        
+
+                        if( response.referral_count && response.referral_count !== '0' )
+                            $('#referralBadgeCount').html(response.referral_count).removeClass('hidden');
+                        else
+                            $('#referralBadgeCount').html('').addClass('hidden');
+                        //  Update Messages Count
+                        if( response.message_count && response.message_count !== '0' )
+                            $('#messageBadgeCount').html(response.message_count).removeClass('hidden');
+                        else
+                            $('#messageBadgeCount').html('').addClass('hidden');
+
+                        if( response.notification_count && response.notification_count !== '0' )
+                            $('#notificationBadgeCount').html(response.notification_count).removeClass('hidden');
+                        else
+                            $('#notificationBadgeCount').html('').addClass('hidden');
+
+                    } else {
+                        console.error(response.message);
+                    }
+
+                });
+            }
+
+
+
+
+        });
+
+    </script>
+
+        <script type="text/javascript">
+
+            window.onload = function() {
+                setTimeout(function() {
+                    $(document.body).scrollTop(0);
+                }, 15);
+            };
+
+
+
+
+            function showDescription(d,f) {
+                var docId = "form_Q" + f;
+                $(document.createElement('div'))
+                    .attr({ 'id': "form_Q",'class': 'alert'})
+                    .html("<p>"+d+"</p><div style=\"text-align:center;\"><a href=\"#\" onClick=\"closeQbox("+docId+");\">Close</a></div>")
+                    .dialog({
+                        close: function(){$(this).remove();},
+                        height:"auto",
+                        width: "auto",
+                        modal: false,
+                        show: { effect: "slide", duration: 600 },
+                        draggable: true
+
+                    });
+                if (document.getElementById(docId).checked === false)
+                {
+                    setTimeout(function() { uncheckCheckbox(docId); }, 10);
+                }
+            }
+
+            function closeQbox(tid)
+            {
+                $(form_Q).remove();
+                var t = $('body').scrollTop();
+                $('html, body').animate({scrollTop:t}, 'fast');
+            }
+
+
+            function uncheckCheckbox(docId)
+            {
+
+                document.getElementById(docId).checked = false;
+            }
+    </script>
+
+     <script type="text/javascript">
+
+function list() {
+    document.getElementById("myDropdown").classList.toggle("show");
+    getMessageCounts();
+}
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropdown-toggle')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-menu");
+
+      dropdowns.classList.contains('show')
+
+    }
+  }
+
+</script>
+    {% endjavascripts %}
+{% endblock %}
+</body>
+</html>

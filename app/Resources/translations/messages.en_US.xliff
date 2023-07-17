@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!-- messages.en_XXX Automatically generated on date with bin/genXliff 4 -->
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+		<trans-unit id="id"> <source>name</source> <target>localtext</target> </trans-unit>
+		<trans-unit id="13"> <source>Npi number</source> <target>NPI Number</target> </trans-unit>
+		<trans-unit id="14"> <source>Cell phone</source> <target>Cell Phone</target> </trans-unit>
+		<trans-unit id="15"> <source>Office phone</source> <target>Office Phone</target> </trans-unit>
+		<trans-unit id="16"> <source>Degree</source> <target>Degree</target> </trans-unit>
+		<trans-unit id="17"> <source>Add New Physician</source> <target>Add Staff</target> </trans-unit>
+		<trans-unit id="18"> <source>Doc number</source> <target>Doc Number</target> </trans-unit>
+		<trans-unit id="19"> <source>Add New Patient Group</source> <target>Add New Team</target> </trans-unit>
+		<trans-unit id="20"> <source>Notes</source> <target>Notes</target> </trans-unit>
+		<trans-unit id="21"> <source>Issues</source> <target>Issues</target> </trans-unit>
+		<trans-unit id="22"> <source>Lab</source> <target>Lab</target> </trans-unit>
+		<trans-unit id="23"> <source>Hpi</source> <target>HPI</target> </trans-unit>
+		<trans-unit id="24"> <source>Medications</source> <target>Meds</target> </trans-unit>
+		<trans-unit id="25"> <source>physicianImportLine</source> <target>ATT_NUM,LAST_NAME,FIRST_NAME,PHONE_NUM,ALT_PHONE,BRTHDATE,SEX,LANG_1,LANG_2,SPCSKILL,Agency</target> </trans-unit>
+		<trans-unit id="26"> <source>score=3</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;&lt;/i&gt;&lt;i style=&quot;color:red&quot;&gt; RED&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="27"> <source>score=2</source> <target>&lt;i class=&quot;fa fa-flag&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;&lt;i style=&quot;color:orange&quot;&gt; Yellow&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="28"> <source>score=1</source> <target>&lt;i class=&quot;fa fa-check&quot; style=&quot;color:green&quot;&gt;&lt;/i&gt;&lt;i style=&quot;color:green&quot;&gt; Green&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="29"> <source>score=0</source> <target>&lt;i class=&quot;fa fa-check&quot; &gt; OK</target> </trans-unit>
+		<trans-unit id="30"> <source>score=</source> <target>&lt;i class=&quot;fa fa-check&quot; &gt; OK</target> </trans-unit>
+		<trans-unit id="31"> <source>Physician Import</source> <target>Import Staff List</target> </trans-unit>
+		<trans-unit id="32"> <source>Agency list</source> <target>Dept. / Practice</target> </trans-unit>
+		<trans-unit id="33"> <source>Agency</source> <target>Dept. / Practice</target> </trans-unit>
+		<trans-unit id="34"> <source>Member List</source> <target>Patients</target> </trans-unit>
+		<trans-unit id="35"> <source>Add New Member</source> <target>Add New Patient</target> </trans-unit>
+		<trans-unit id="36"> <source>Member</source> <target>Patient</target> </trans-unit>
+		<trans-unit id="136"> <source>Members</source> <target>Patients</target> </trans-unit>
+		<trans-unit id="37"> <source>Agency Edit</source> <target>Dept / Practice Edit</target> </trans-unit>
+		<trans-unit id="38"> <source>Transport phone</source> <target>Service Phone</target> </trans-unit>
+		<trans-unit id="39"> <source>News</source> <target>Notes</target> </trans-unit>
+                <trans-unit id="4"> <source>signature</source> <target>Call Back Number / Signature</target> </trans-unit>
+                
+                <trans-unit id="40"> <source>pat_</source> <target>&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:green&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+                <trans-unit id="41"> <source>pat_active</source> <target>&lt;i class=&quot;fa fa-circle&quot; style=&quot;color:green&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+                <trans-unit id="42"> <source>pat_suspend</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="43"> <source>pat_off</source> <target>&lt;i class=&quot;fa fa-circle-thin&quot; style=&quot;color:black&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+                
+		<trans-unit id="50"> <source>All Agencies</source> <target>All Depts</target> </trans-unit>
+                              
+		<trans-unit id="60"> <source>refcnt=0</source> <target>&lt;i class=&quot;fa fa-check&quot; &gt; OK</target> </trans-unit>
+		<trans-unit id="61"> <source>refcnt=1</source> <target>&lt;i class=&quot;fa fa-flag&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="62"> <source>refcnt=2</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;2&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="63"> <source>refcnt=3</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;3&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="64"> <source>refcnt=4</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;4&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="65"> <source>refcnt=5</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;5&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="66"> <source>refcnt=6</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;6&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="67"> <source>refcnt=7</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;7&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="68"> <source>refcnt=8</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;8&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="69"> <source>refcnt=9</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;9&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="70"> <source>refcnt=10</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;10&lt;/i&gt;</target> 
+                </trans-unit>
+
+		<trans-unit id="160"> <source>tobclosed=0</source> <target>&lt;i class=&quot;fa fa-check&quot; &gt; OK</target> </trans-unit>
+		<trans-unit id="161"> <source>tobclosed=1</source> <target>&lt;i class=&quot;fa fa-flag&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="162"> <source>tobclosed=2</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;2&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="163"> <source>tobclosed=3</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;3&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="164"> <source>tobclosed=4</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;4&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="165"> <source>tobclosed=5</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;5&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="166"> <source>tobclosed=6</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;6&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="167"> <source>tobclosed=7</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;7&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="168"> <source>tobclosed=8</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;8&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="169"> <source>tobclosed=9</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;9&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="170"> <source>tobclosed=10</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;10&lt;/i&gt;</target> 
+                </trans-unit>
+
+                                                                                          
+                                                                                                                                                                                    		
+                <trans-unit id="260"> 
+                    <source>empcnt=0</source> 
+                    <target>&lt;i class=&quot;fa fa-check&quot; &gt; OK</target> 
+                </trans-unit>
+		<trans-unit id="261"> <source>empcnt=1</source> <target>&lt;i class=&quot;fa fa-flag&quot; style=&quot;color:orange&quot;&gt;&lt;/i&gt;</target> </trans-unit>
+		<trans-unit id="262"> <source>empcnt=2</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;2&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="263"> <source>empcnt=3</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;3&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="264"> <source>empcnt=4</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;4&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="265"> <source>empcnt=5</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;5&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="266"> <source>empcnt=6</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;6&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="267"> <source>empcnt=7</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;7&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="268"> <source>empcnt=8</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;8&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="269"> <source>empcnt=9</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;9&lt;/i&gt;</target> 
+                </trans-unit>
+		<trans-unit id="270"> <source>empcnt=10</source> <target>&lt;i class=&quot;fa fa-exclamation-triangle&quot; style=&quot;color:red&quot;&gt;10&lt;/i&gt;</target> 
+                </trans-unit>
+                <trans-unit id="271"> <source>Deleted Member List</source> <target>Deleted Patient List</target> </trans-unit>
+                                                                                          
+        </body>
+    </file>
+</xliff>

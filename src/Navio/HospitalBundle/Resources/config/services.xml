@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="kernel.listener.requestresponse" class="Navio\HospitalBundle\EventListener\HospitalRequestListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"  />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="twig" />
+        </service>
+
+        <service id="navio.extension" class="Navio\HospitalBundle\Twig\Extension\NavioExtension">
+            <tag name="twig.extension" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="physician.settings" class="Navio\HospitalBundle\Service\PhysicianSettingsService">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="physician.device.provider" class="Navio\HospitalBundle\Service\PhysicianDeviceProvider">
+            <argument type="service" id="doctrine"/>
+        </service>
+        <service id="event.log" class="Navio\HospitalBundle\Service\EventLoggingService">
+            <argument type="service" id="doctrine"/>
+        </service>
+        <service class="Navio\HospitalBundle\Service\PushNotificationService" id="navio.push.notification">
+            <argument id="service_container" type="service"/>
+        </service>
+        <service id="physician.memberinformation.provider" class="Navio\HospitalBundle\Service\GroupMemberInformation">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="group.members" class="Navio\HospitalBundle\Service\GroupMembersProvider">
+            <argument type="service" id="doctrine"/>
+        </service>
+        <service id="navio.send.private_message" class="Navio\MessageBundle\Service\PrivateMessageService">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="navio.sms.sms_notification" class="Navio\MessageBundle\Service\SMSNotificationService" public="true">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service class="Navio\HospitalBundle\Service\OnCallService" id="navio_hospital.service.on_call_service">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="navio.email.email_notification" class="Navio\MessageBundle\Service\EmailNotificationService" public="true">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="navio.patient.patient_service" class="Navio\HospitalBundle\Service\PatientService">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="navio.access.access_request_service" class="Navio\HospitalBundle\Service\AccessRequestService">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="navio.user.fos_user_login_service" class="Navio\HospitalBundle\Service\UserLoginService">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
+        <service id="user_login_manager" class="Navio\HospitalBundle\Service\UserLoginManager">
+            <argument type="service" id="doctrine"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+        <service class="Navio\MessageBundle\Service\UploadImageService" id="navio_message_upload_image" public="true">
+            <argument type="service" id="service_container"/>
+        </service>
+        <service class="Navio\MessageBundle\Service\UploadImageService" id="upload_image_service" public="true" alias="navio_message_upload_image"/>
+        <service id="navio.command.create_user" class="Navio\HospitalBundle\Command\CreateUser2Command">
+            <argument type="service" id="fos_user.util.user_manipulator" />
+            <argument type="service" id="service_container"/>
+            <tag name="console.command" command="navio:user:create2" />
+        </service>
+        <service id="navio.command.create_patient" class="Navio\HospitalBundle\Command\CreatePatientCommand">
+            <argument type="service" id="fos_user.util.user_manipulator" />
+            <argument type="service" id="service_container"/>
+            <tag name="console.command" command="navio:patient:create" />
+        </service>
+        <service id="navio_pre_auth_settings_service" class="Navio\HospitalBundle\Service\PreAuthService" public="true">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+    </services>
+</container>

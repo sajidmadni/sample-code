@@ -1,0 +1,3 @@
+export const CREATE_TASK = "CREATE_TASK";
+export const GET_TASKS_LIST = "GET_TASKS_LIST";
+//export const GET_RECIPIENTS_LIST = "GET_RECIPIENTS_LIST";

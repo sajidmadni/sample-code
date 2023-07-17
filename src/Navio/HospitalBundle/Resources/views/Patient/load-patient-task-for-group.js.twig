@@ -1,0 +1,28 @@
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $('select').on('change', function(e) {
+            var groupId = this.value;
+            var url = '{{path(loc)}}';
+            
+            if ("{{ app.request.uri }}".indexOf('mobile') !== -1){
+                url = '{{path(loc)}}';
+            }
+            if ("{{ app.request.uri }}".indexOf('stat') !== -1) {
+                url = url+'-stat'
+            }
+            if (groupId){
+                url = url+'/'+groupId;
+            }
+            {% if search_page_params is defined %}
+                url = url+'?my_patients=1';
+            {% endif %}
+            // if(window.location.search){
+            //     url = url+'?my_patients=1';
+            // }
+            $.post(url, { 'groupId': groupId}, function() {
+                window.location = url;
+            });
+        });
+    });
+</script>

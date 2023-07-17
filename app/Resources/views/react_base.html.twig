@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+{% block content_inner_core_classes %}content-inner{% endblock %}
+{% block additional_body_classes %} messenger content-has-header{% endblock %}
+
+{% set show_menu_hide_buttons="true" %}
+{% block additional_menu_classes %} menu-hidden{% endblock %}
+{% block additional_header_classes %}messengerHeader{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#!!!User new list style sheet here#}
+    {#<link href="{{ asset('bundles/message/css/list.css') }}" rel="stylesheet">#}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/timepicker@1.13.18/jquery.timepicker.min.css">
+{% endblock %}
+
+{% block app_content_inner %}
+    <div id="root"></div>
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+    <script src="//cdn.jsdelivr.net/npm/timepicker@1.13.18/jquery.timepicker.min.js"></script>
+{% endblock %}
+
+

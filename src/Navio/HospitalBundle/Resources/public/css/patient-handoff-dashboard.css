@@ -1,0 +1,23 @@
+select#fromgroup{
+    width: 40%;
+    margin-bottom: 3.5%;
+}
+
+select#togroup{
+    margin-bottom: 3.5%;
+    width: 40%;
+    margin-left: 2.6%;
+}
+
+select#action{
+    width: 50%;
+}
+
+select#phygroup{
+    margin-bottom: 3.5%;
+    width: 26.5%;
+}
+
+.rowinline{
+    display: inline-block;
+}

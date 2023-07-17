@@ -1,0 +1,41 @@
+This file ought to be moved or deleted. ( I am testing a bitbucket featue..) 
+
+*) Issues migrating database  Could be existing data.
+
+ALTER TABLE consult ADD CONSTRAINT FK_82BFF07E5B8273E FOREIGN KEY (insurance_plan_id) REFERENCES insurance_plan (id);
+ALTER TABLE consult ADD CONSTRAINT FK_82BFF07E3DA5256D FOREIGN KEY (image_id) REFERENCES secure_file (id);
+
+
+ALTER TABLE consult ADD CONSTRAINT FK_82BFF07E5B8273E FOREIGN KEY (insurance_plan_id) REFERENCES insurance_plan (id);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`pu_clean`.`#sql-c9e_8c2a`, CONSTRAINT `FK_82BFF07E5B8273E` FOREIGN KEY (`insurance_plan_id`) REFERENCES `insurance_plan` (`id`))
+
+
+*) Are mood messages accounted for?
+
+*) Add Consult goes blank.. memory? 
+
+
+*) http://localhost:8000/physicians/view/30493  title is Edit Staff ( rather than View Staff) ( Fixed title)
+*)should be R/O 
+
+
+*) TOOL TIPS on icons. 
+
+*) Hospital Admin cant view oncall! 
+You must be assigned to an Agency, Department, or Practice in order to view the monthly schedule.
+
+
+http://localhost:8000/address-book/?title=Hospital+Directory
+search button not working 
+
+
+
+Post 3.0 Improvements
+
+*) On call ought to show who is on call at start of month. 
+
+*) copy previous month function. 
+
+
+
+

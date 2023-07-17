@@ -1,0 +1,77 @@
+.form-group {
+    margin-bottom: 5px;
+}
+
+.peter {
+    font-weight: bold;
+    color: #0074bf;
+}
+
+#lblRole {
+    padding-left: 6%;
+    font-size: 15px;
+    color: #808080;
+    line-height: 26px;
+}
+
+.stupid {
+    color: red;
+    font-weight: bold;
+}
+
+input[type=checkbox]:checked:before {
+    content: "\2713";
+    background: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    font-size: 15px;
+    text-align: center;
+    line-height: 14px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    color: #0074bf;
+    border: 1px solid #0074bf;
+    border-radius: 4px;
+    text-indent: 1px;
+}
+
+input[type=checkbox]:before {
+    content: "";
+    background: #fff;
+    font-size: 15px;
+    text-align: center;
+    line-height: 14px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    color: #cdcdcd;
+    border: 1px solid #cdcdcd;
+    border-radius: 4px;
+    text-indent: 1px;
+}
+
+input[type="checkbox"] {
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    margin-left: -22px !important;
+}
+
+input[type="checkbox"]:focus{
+    outline:0;
+}
+
+table.table {
+    margin-left: 0px !important;
+    margin-top: 25px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+.table > tbody > tr > td {
+    border: 0px;
+}

@@ -1,0 +1,78 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{'Member List'|trans}}{% endblock %}
+{% block page_title %}{{'Member List'|trans}}{% endblock %}
+{% if search_page is not defined %}{% set search_page = "patient_all" %}{% endif %}
+
+{% block header_actions %}
+    {% include 'HospitalBundle:Default/Module:search.html.twig' %} 
+{% endblock %}
+
+{% block app_content_inner %}
+
+    <div class="container-fluid">
+
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('patient_mylist') }}">My Patients</a></li>
+                <li class="activeList">All Patients</li>
+                <li><a href="{{ path('view-to-do-patient-task') }}">Task List</a></li>
+            </ol>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birth Date</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if record %}
+                    {% for patient in record %}
+                        <tr>
+                            <td>{{ patient }}</td>
+                            <td>{{ patient.getBirthdate()|date('m/d/Y') }}</td>
+                            <td>{{ patient.getLocation() }}</td>
+                            {#<td>{{ patient.getPatientGroup()?patient.getPatientGroup().name:'n/a' }}</td>#}
+                            <td>
+                                {% if patient.user %}
+                                    {% if patient.user.isActive %}
+                                        <i class="fa fa-comment-o send-message" data-member-id="{{ patient.getId() }}" style="cursor:pointer;"></i>
+                                    {% endif %}
+                                {% endif %}
+                                <a href="#" class="btn btn-default"><i class="fa fa-users careTeamInfo sp" title="View Care Team"
+                                                                       data-staff-id="{{ patient.getId() }}"
+                                                                       data-name="{{ patient.getLastName() }}, {{ patient.getFirstName() }}"
+                                                                       data-dob="{{ patient.getBirthdate()|date('m/d/Y') }}"
+                                                                       data-list="0"></i></a>
+                                {% if pcc == 1 %}<a href="#" data-wpurl="{{ path('list_message',{'id':patient.getId(),'fn':patient.getFirstName(),'ln':patient.getLastName()}) }}" class="btn btn-default sendMsgNow_{{ patient.getId() }}"><i class="fa fa-comment-o careTeamMsg" data-staff-id="{{ patient.getId() }}" title="Send Message" data-title="{{ patient.getFirstName() }}{{ patient.getLastName() }}"></i></a>{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="9">Could not find patients!</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+            {% include 'HospitalBundle:Default/Module:pagination.html.twig' %}
+        </div>
+
+    </div>
+
+    {% include 'MessageBundle:Default/Modal:message_modal.html.twig' %}
+    {% include 'HospitalBundle:Default/Module:patient_careTeam.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% include 'MessageBundle:Default/Modal:message_modal.js.twig' %}
+    {% include 'HospitalBundle:Default/Module:patient_careTeam.js.twig' %}
+
+{% endblock %}

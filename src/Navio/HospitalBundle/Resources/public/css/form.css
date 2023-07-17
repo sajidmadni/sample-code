@@ -1,0 +1,134 @@
+@media screen and (max-width: 1000px)
+{
+
+    header.main {
+      height: 60px;
+      margin-top: -60px;
+      margin-left: 11px;
+      background-image:url("/img/centra_small.jpg");
+      background-size: 280px 51px;
+      background-repeat: no-repeat;
+      position: fixed;
+      background-color: #FFF;
+      z-index: 300
+    }
+
+    header.main a.logo {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #FFF;
+      line-height: 60px;
+      padding-left: 70px;
+    }
+
+    .content-has-header section.content-inner {
+      margin-top: 0px;
+
+    }
+
+    body.content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding-top: 60px;
+      padding-left: 0px;
+    }
+
+    button {
+         margin-top: 40px;
+    }
+
+    input{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display:inline-block;
+        vertical-align:middle;
+    }
+
+    body.content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding-top: 60px;
+        padding-left: 0px;
+        overflow: scroll;
+        overflow-x: hidden;
+
+    }
+
+    header.page {
+        position: relative;
+        top: 30px;
+        left: 0px;
+        right: 0;
+        padding: 0 5px 0 20px;
+        height: 73px;
+        background-color: #FFF;
+        border-bottom: 1px solid #dde3eb;
+        -webkit-box-shadow: 0 0 4px 0 #e7eaed;
+        -moz-box-shadow: 0 0 4px 0 #e7eaed;
+        box-shadow: 0 0 4px 0 #e7eaed;
+        z-index: 100
+    }
+
+
+    aside.menu {
+        visibility: hidden;
+    }
+
+    a.logo {
+        visibility: hidden;
+    }
+
+}
+p.divhead{
+  color: green;
+
+}
+div.border {
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid;
+    border-color: #000000;
+    display: block;
+}
+
+
+label{
+    padding-top: 5px;
+    text-align: left;
+    width: 300px;
+    text-decoration: underline;
+}
+
+label.ununderline {
+    text-decoration: none;
+}
+
+input[type="text"]{
+    width: 310px;
+}
+
+
+@media screen and (max-width: 320px)
+{
+    input[type="text"]{
+        width: 280px;
+    }
+
+    label{
+    padding-top: 5px;
+    text-align: left;
+    width: 260px;
+  }
+
+}

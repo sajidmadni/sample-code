@@ -1,0 +1,46 @@
+/* 
+    Created on : Nov 2, 2015, 5:45:27 PM
+    Author     : edguy
+
+Override and extend app.css
+
+*/
+
+i.presence-active{color:green;}
+i.presence-inactive{color:white;}
+i.presence-unavailable{color:red;}
+i.presence-dnd{color:red;}
+i.presence-covered{color:green;}
+i.presence-{color:green;}
+
+span.nav-notification2 {
+    background-color: #ff0000;
+    border-radius: 11px;
+    color: #FFFFFF;
+    font-size: 9px;
+    font-weight: bold;
+    height: 17px;
+    line-height: 16px;
+    min-width: 8px;
+    padding: 0 6px;
+    position: absolute;
+    right: 35px;
+    text-align: center;
+    top: 13px;
+    z-index: 100;
+}
+
+span.newIcon {
+    background-color: #ff0000;
+    border-radius: 11px;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 9px;
+    right: 35px;
+    text-align: center;
+    top: 13px;
+    z-index: 100;
+    margin-left: 5px;
+}
+

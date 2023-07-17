@@ -1,0 +1,64 @@
+{
+  "scripts": {
+    "encore": "encore"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.12.13",
+    "@symfony/webpack-encore": "^1.1.2",
+    "node-sass": "^5.0.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.0",
+    "webpack-notifier": "^1.6.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.9",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@mui/material": "^5.4.2",
+    "@szhsin/react-menu": "^1.10.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.3",
+    "bootstrap": "^5.0.0-beta2",
+    "emoji-mart": "^3.0.1",
+    "fast-text-encoding": "^1.0.3",
+    "i18next": "^19.9.2",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "moment": "^2.29.1",
+    "react": "^17.0.1",
+    "react-app-polyfill": "^2.0.0",
+    "react-bootstrap": "^1.5.1",
+    "react-dom": "^17.0.1",
+    "react-editext": "^4.1.5",
+    "react-i18next": "^11.8.9",
+    "react-image-lightbox": "^5.1.1",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "react-toastify": "^7.0.4",
+    "reactstrap": "^8.9.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
+    "simplebar-react": "^2.3.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "ie 11"
+    ]
+  }
+}

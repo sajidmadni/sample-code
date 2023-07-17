@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block jumbotron %}{{ title }}{% endblock %}
+
+
+{% block fos_user_content %}
+
+
+<!-- app/Resources/views/PrUForm.html.twig -->
+<style type="text/css">
+    .table-hover tbody tr:hover td
+    {
+        background-color: #CEECF5;
+    }
+</style>
+
+
+    <table class="table table-striped table-hover" style="width:60%;margin-left:auto;margin-right:auto;" >
+		<tr><td>Name</td><td>Value</td></tr>
+		{% for key, value in properties %} 
+		       <tr>
+        <td>{{- key -}} </td> 
+        <td>{{- value -}}  </td>
+        </tr>
+		{% endfor %}
+    </table>
+{% if backurl is defined %}
+	<a href="{{ path(backurl) }}"><img src="{{asset('view.jpg')}}"></a>
+{% endif %}
+{% if editurl is defined %}
+	<a href="{{ path(editurl,{'id':id}) }}"><img src="{{asset('edit.png')}}"></a>
+{% endif %}
+{% if deleteurl is defined %}
+	<a href="{{ path(deleteurl,{'id':id}) }}" onclick="return confirm('Are you sure ??')"><img src="{{ asset('delete.png') }}"></a>
+{% endif %}
+
+
+
+{% endblock %}

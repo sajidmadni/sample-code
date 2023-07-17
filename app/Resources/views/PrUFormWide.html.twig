@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{# import "_self" as the form theme #}
+{% form_theme form _self %}
+
+{% block field_row  %}{% endblock field_row  %}
+
+{% block form_row  %}
+        <tr>
+        <td>{{- form_label(form) -}} </td>
+        <td>{{- form_widget(form) -}}  </td>
+        <td>{{- form_errors(form) -}}  </td>
+        </tr>
+{%- endblock form_row %}
+
+{% block button_row -%}
+    <tr>
+        <td></td>
+        <td>
+            {{- form_widget(form) -}}
+        </td>
+        <td></td>
+    </tr>
+{% endblock button_row %}
+
+{% block hidden_row -%}
+    <tr style="display: none">
+        <td colspan="3">
+            {{- form_widget(form) -}}
+        </td>
+    </tr>
+{% endblock hidden_row %}
+
+
+{% block form_rest -%}
+    {% for child in form -%}
+        {% if not child.rendered %}
+            <tr><td colspan="2">REST {{- form_row(child) -}}</td></tr>
+        {% endif %}
+    {%- endfor %}
+{% endblock form_rest %}
+
+
+{% block app_content_inner %}
+
+<!-- app/Resources/views/PrUForm.html.twig -->
+<table class="table table-striped table-hover" style="width:95%;margin-left:auto;margin-right:auto;" >
+    {{ form(form) }}
+    {{ form_widget(form)}}
+</table>
+
+{% endblock %}

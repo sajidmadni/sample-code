@@ -1,0 +1,83 @@
+
+
+label.access-request {
+    padding: 5px 0px 0px 5px;
+    width: 100%;
+    vertical-align: top;
+    font-size: 50;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    height: 100px;
+}
+
+
+input[type=text], input[type=url], input[type=email], input[type=password], input[type=tel] {
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  display: block;
+  margin: 0;
+  width: 100%; height: 100px;
+  line-height: 100px; font-size: 50px;
+  border: 1px solid #bbb;
+}
+
+button[type="submit"] {
+    margin-top: 50px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    padding: 5px 0px 0px 5px;
+    width: 100%; height: 100px;
+    font-size: 50px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 100px;
+    padding: 6px 12px;
+    font-size: 50px;
+    line-height: 1.428571429;
+    color: #000000;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dde3eb;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s ease-out;
+    -moz-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s ease-out;
+    -o-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s ease-out;
+    transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s ease-out;
+}
+
+.required:after {
+    content: "*";
+    color: #ff0000;
+    padding-left: 2px;
+    font-size: 75;
+}
+
+.required-doc:before {
+    content: "*";
+    color: #ff0000;
+    padding-left: 2px;
+    font-size: 75px;
+}
+
+p.access-request-doc {
+    padding: 5px 0px 0px 5px;
+    width: 100%;
+    vertical-align: top;
+    font-size: 50;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    height: 100px;
+}
